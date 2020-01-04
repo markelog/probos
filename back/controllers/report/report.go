@@ -150,7 +150,7 @@ func (report *Report) Last(args *LastArgs) (result LastResult, err error) {
 		commit = report.db.Table("commits").Select("id").Where(
 			"branch_id = (?)",
 			branch,
-		).Order("created_at DESC").Limit(1).QueryExpr()
+		).Limit(1).QueryExpr()
 	)
 
 	err = report.db.Select("DISTINCT(name), size, gzip").Where(

@@ -140,7 +140,7 @@
   name: index.js
   size: 230
   gzip: 941
-  commit_id: 10
+  commit_id: 12
 
 - id: 17
   created_at: 2018-12-12T09:53:02.192Z
@@ -149,7 +149,7 @@
   name: index.js
   size: 1830
   gzip: 941
-  commit_id: 11
+  commit_id: 13
 
 - id: 18
   created_at: 2018-12-12T09:53:02.192Z
@@ -157,23 +157,5 @@
   deleted_at: null
   name: index.js
   size: 8830
-  gzip: 941
-  commit_id: 12
-
-- id: 19
-  created_at: 2018-12-12T09:53:02.192Z
-  updated_at: 2018-12-12T09:53:02.738Z
-  deleted_at: null
-  name: index.js
-  size: 10830
-  gzip: 941
-  commit_id: 13
-
-- id: 20
-  created_at: 2018-12-12T09:53:02.192Z
-  updated_at: 2018-12-12T09:53:02.738Z
-  deleted_at: null
-  name: index.js
-  size: 11830
   gzip: 941
   commit_id: 14

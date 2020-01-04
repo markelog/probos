@@ -46,7 +46,7 @@ func (report *Report) Get(args *GetArgs) ([]*GetResult, error) {
 	err := report.db.Preload("Reports", func(db *gorm.DB) *gorm.DB {
 		return report.db.Select("name, size, gzip, commit_id, updated_at")
 	}).Where("branch_id = (?)", branch).
-		Order("created_at DESC").
+		Order("date ASC").
 		Find(&commits).
 		Error
 
