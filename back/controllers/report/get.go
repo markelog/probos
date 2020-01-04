@@ -59,11 +59,13 @@ func (report *Report) Get(args *GetArgs) ([]*GetResult, error) {
 
 func formatGetResult(commits []models.Commit) []*GetResult {
 	var result []*GetResult
+	var tmpKeys = []string{}
 	var tmp = map[string]*GetResult{}
 
 	for _, commit := range commits {
 		for _, report := range commit.Reports {
 			if _, ok := tmp[report.Name]; !ok {
+				tmpKeys = append(tmpKeys, report.Name)
 				tmp[report.Name] = &GetResult{
 					Name: report.Name,
 				}
@@ -82,8 +84,8 @@ func formatGetResult(commits []models.Commit) []*GetResult {
 		}
 	}
 
-	for _, data := range tmp {
-		result = append(result, data)
+	for _, name := range tmpKeys {
+		result = append(result, tmp[name])
 	}
 
 	return result
