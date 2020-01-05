@@ -21,7 +21,7 @@ function Index(data) {
   return (
     <main>
       <h1>{JSON.stringify(identity)}</h1>
-      <Link href="/api/logout" color="inherit" className={classes.link}>
+      <Link href="/api/auth/logout" color="inherit" className={classes.link}>
         logout
       </Link>
       <Layout>

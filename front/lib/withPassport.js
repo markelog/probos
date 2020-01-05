@@ -9,8 +9,8 @@ export { default as passport } from "passport";
 
 passport.use(github);
 passport.serializeUser((user, done) => {
-  const { id, displayName, username, profileUrl, photos } = user;
-  done(null, { id, displayName, username, profileUrl, photos });
+  const { id, displayName, emails, username, profileUrl, photos } = user;
+  done(null, { id, displayName, emails, username, profileUrl, photos });
 });
 passport.deserializeUser(async (serializedUser, done) => {
   if (!serializedUser) {
