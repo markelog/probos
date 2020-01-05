@@ -5,17 +5,17 @@ import NextApp, { AppInitialProps, AppContext } from "next/app";
 
 const IdentityContext = React.createContext(null);
 
-const loginPage = "/auth/login";
+const rootPage = "/";
 
 export const redirectToLogin = ctx => {
   if (
-    (ctx && ctx.pathname === loginPage) ||
-    (typeof window !== "undefined" && window.location.pathname === loginPage)
+    (ctx && ctx.pathname === rootPage) ||
+    (typeof window !== "undefined" && window.location.pathname === rootPage)
   ) {
     return;
   }
 
-  redirect(ctx, loginPage);
+  redirect(ctx, rootPage);
 };
 
 // any is needed to use as JSX element
@@ -31,10 +31,10 @@ const withIdentity = App => {
         appProps = { pageProps: {} };
       }
 
-      const { passportSession } = nextCookie(ctx.ctx);
+      const { auth } = nextCookie(ctx.ctx);
 
       // Redirect to login if page is protected but no session exists
-      if (!passportSession) {
+      if (!auth) {
         redirectToLogin(ctx.ctx);
         return Promise.resolve({
           pageProps: null,
@@ -42,10 +42,7 @@ const withIdentity = App => {
         });
       }
 
-      const serializedCookie = Buffer.from(
-        passportSession,
-        "base64"
-      ).toString();
+      const serializedCookie = Buffer.from(auth, "base64").toString();
 
       const {
         passport: { user }

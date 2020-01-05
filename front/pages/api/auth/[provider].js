@@ -1,6 +1,6 @@
 import withPassport, { passport } from "../../../lib/withPassport";
 
-const handler = (req, res) => {
+const Provider = (req, res) => {
   const { provider } = req.query;
   if (!provider) {
     return { statusCode: 404 };
@@ -11,4 +11,4 @@ const handler = (req, res) => {
   });
 };
 
-export default withPassport(handler);
+export default withPassport(Provider);

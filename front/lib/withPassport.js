@@ -31,11 +31,13 @@ export default fn => (req, res) => {
     res.redirect = location => redirect(res, 302, location);
   }
 
+  console.log(111);
+
   // Initialize Passport and restore authentication state, if any, from the
   // session. This nesting of middleware handlers basically does what app.use(passport.initialize())
   // does in express.
   cookieSession({
-    name: "passportSession",
+    name: "auth",
     signed: false,
     domain: url.parse(req.url).host,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours

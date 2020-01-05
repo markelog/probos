@@ -20,6 +20,9 @@ function Index(data) {
 
   return (
     <main>
+      <p>
+        <a href="/api/auth/github">Sign in with github</a>
+      </p>
       <h1>{JSON.stringify(identity)}</h1>
       <Link href="/api/auth/logout" color="inherit" className={classes.link}>
         logout
