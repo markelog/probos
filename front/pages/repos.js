@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 
-import { get as getUser } from "../lib/user";
-
 import Layout from "../components/layout";
 
 import Graphs from "../components/graphs";
@@ -31,19 +29,7 @@ const Repos = function({ user, repository }) {
 };
 
 Repos.getInitialProps = async ({ req, res, asPath }) => {
-  const user = await getUser(req);
-
-  // Redirect to login if user is not there
-  if (user === null) {
-    res.writeHead(302, {
-      Location: "/api/login"
-    });
-    res.end();
-    return;
-  }
-
   return {
-    user,
     repository: asPath.replace("/repos/", "")
   };
 };

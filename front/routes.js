@@ -2,3 +2,5 @@ const nextRoutes = require("next-routes");
 const routes = (module.exports = nextRoutes());
 
 routes.add("repos", "/repos/(.*)");
+routes.add("index", "/");
+routes.add("auth/login", "/auth");
