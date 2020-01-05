@@ -40,9 +40,6 @@ const useStyles = makeStyles({
 });
 
 const diffFormat = (value, classes) => {
-  if (value.diff === "4.98") {
-    debugger;
-  }
   if (value.diff === "0") {
     return <span className={classes.stiff}>{value.diff}</span>;
   }

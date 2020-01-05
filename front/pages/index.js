@@ -14,9 +14,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Index({ user, status }) {
+function Index(data) {
   const classes = useStyles();
-
   const identity = useIdentity();
 
   return (
@@ -25,7 +24,7 @@ function Index({ user, status }) {
       <Link href="/api/logout" color="inherit" className={classes.link}>
         logout
       </Link>
-      <Layout user={user}>
+      <Layout>
         <Graphs repository="github.com/markelog/adit" branch="master" />
       </Layout>
     </main>
