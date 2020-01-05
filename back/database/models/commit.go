@@ -40,7 +40,12 @@ var commitSchema = gojsonschema.NewStringLoader(`{
 // Validate model
 func (commit Commit) Validate(db *gorm.DB) {
 	commitLoader := gojsonschema.NewGoLoader(commit)
-	check, _ := gojsonschema.Validate(commitSchema, commitLoader)
+
+	check, err := gojsonschema.Validate(commitSchema, commitLoader)
+	if err != nil {
+		db.AddError(err)
+		return
+	}
 
 	for _, desc := range check.Errors() {
 		db.AddError(errors.New(desc.String()))

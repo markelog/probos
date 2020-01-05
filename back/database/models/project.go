@@ -40,7 +40,12 @@ var projectSchema = gojsonschema.NewStringLoader(`{
 // Validate model
 func (project Project) Validate(db *gorm.DB) {
 	projectLoader := gojsonschema.NewGoLoader(project)
-	check, _ := gojsonschema.Validate(projectSchema, projectLoader)
+
+	check, err := gojsonschema.Validate(projectSchema, projectLoader)
+	if err != nil {
+		db.AddError(err)
+		return
+	}
 
 	for _, desc := range check.Errors() {
 		db.AddError(errors.New(desc.String()))

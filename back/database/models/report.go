@@ -29,7 +29,12 @@ var reportSchema = gojsonschema.NewStringLoader(`{
 // Validate model
 func (report Report) Validate(db *gorm.DB) {
 	reportLoader := gojsonschema.NewGoLoader(report)
-	check, _ := gojsonschema.Validate(reportSchema, reportLoader)
+
+	check, err := gojsonschema.Validate(reportSchema, reportLoader)
+	if err != nil {
+		db.AddError(err)
+		return
+	}
 
 	for _, desc := range check.Errors() {
 		db.AddError(errors.New(desc.String()))

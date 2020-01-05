@@ -32,7 +32,12 @@ var branchSchema = gojsonschema.NewStringLoader(`{
 // Validate model
 func (branch Branch) Validate(db *gorm.DB) {
 	branchLoader := gojsonschema.NewGoLoader(branch)
-	check, _ := gojsonschema.Validate(branchSchema, branchLoader)
+
+	check, err := gojsonschema.Validate(branchSchema, branchLoader)
+	if err != nil {
+		db.AddError(err)
+		return
+	}
 
 	for _, desc := range check.Errors() {
 		db.AddError(errors.New(desc.String()))
