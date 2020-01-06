@@ -35,7 +35,10 @@ func (user *User) Create(args *CreateArgs) error {
 		Avatar:   args.Avatar,
 	}
 
-	err := user.db.FirstOrCreate(data).Error
+	err := user.db.Where(models.User{
+		Username: args.Username,
+	}).Assign(&data).FirstOrCreate(&data).Error
+
 	if err != nil {
 		return err
 	}

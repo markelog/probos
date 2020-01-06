@@ -40,4 +40,5 @@ func (user User) Validate(db *gorm.DB) {
 	for _, desc := range check.Errors() {
 		db.AddError(errors.New(desc.String()))
 	}
+
 }

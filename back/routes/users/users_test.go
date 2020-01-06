@@ -52,13 +52,13 @@ func TestAbsenceOfUsername(t *testing.T) {
 		"avatar": "test.png",
 	}
 
-	token := req.POST("/users").
+	user := req.POST("/users").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(data).
 		Expect().
 		Status(http.StatusBadRequest)
 
-	json := token.JSON()
+	json := user.JSON()
 
 	json.Schema(schema.Response)
 
@@ -78,13 +78,13 @@ func TestCreate(t *testing.T) {
 		"avatar":   "test.png",
 	}
 
-	token := req.POST("/users").
+	user := req.POST("/users").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(data).
 		Expect().
 		Status(http.StatusOK)
 
-	json := token.JSON()
+	json := user.JSON()
 
 	json.Schema(schema.Response)
 
