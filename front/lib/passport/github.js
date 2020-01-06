@@ -36,11 +36,11 @@ const strategy = new GithubStrategy(
           throw new Error(response.message);
         }
 
-        cb(null, data);
+        cb(null, data.username);
       })
       .catch(err => {
         console.error("Cannot create a user", err);
-        cb(err, data);
+        cb(err, false);
       });
   }
 );

@@ -9,10 +9,9 @@ export { default as passport } from "passport";
 
 passport.use(github);
 passport.serializeUser((user, done) => {
-  const { id, displayName, emails, username, profileUrl, photos } = user;
-  done(null, { id, displayName, emails, username, profileUrl, photos });
+  done(null, { username: user.username });
 });
-passport.deserializeUser(async (serializedUser, done) => {
+passport.deserializeUser((serializedUser, done) => {
   if (!serializedUser) {
     return done(new Error(`User not found: ${serializedUser}`));
   }
@@ -41,10 +40,10 @@ export default fn => (req, res) => {
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   })(req, res, () =>
     passport.initialize()(req, res, () =>
-      passport.session()(req, res, () =>
+      passport.session()(req, res, () => {
         // call wrapped api route as innermost handler
-        fn(req, res)
-      )
+        fn(req, res);
+      })
     )
   );
 };
