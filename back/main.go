@@ -13,6 +13,7 @@ import (
 	"github.com/markelog/pilgrima/routes/reports"
 	"github.com/markelog/pilgrima/routes/root"
 	"github.com/markelog/pilgrima/routes/tokens"
+	"github.com/markelog/pilgrima/routes/users"
 	"github.com/sirupsen/logrus"
 )
 
@@ -36,6 +37,7 @@ func main() {
 	tokens.Up(app, db, log)
 	projects.Up(app, db, log)
 	reports.Up(app, db, log)
+	users.Up(app, db, log)
 	common.Up(app, db, log)
 
 	log.WithFields(logrus.Fields{
