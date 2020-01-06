@@ -47,9 +47,10 @@ func TestAbsenceOfUsername(t *testing.T) {
 	req := request.Up(app, t)
 
 	data := map[string]interface{}{
-		"name":   "killa",
-		"email":  "killa@gorilla.com",
-		"avatar": "test.png",
+		"name":     "killa",
+		"email":    "killa@gorilla.com",
+		"avatar":   "test.png",
+		"provider": "github",
 	}
 
 	user := req.POST("/users").
@@ -76,6 +77,7 @@ func TestCreate(t *testing.T) {
 		"username": "gorilla",
 		"email":    "killa@gorilla.com",
 		"avatar":   "test.png",
+		"provider": "github",
 	}
 
 	user := req.POST("/users").

@@ -17,6 +17,7 @@ type CreateArgs struct {
 	Username string `json:"username,omitempty"`
 	Email    string `json:"email,omitempty"`
 	Avatar   string `json:"avatar,omitempty"`
+	Provider string `json:"provider,omitempty"`
 }
 
 // New user
@@ -33,6 +34,7 @@ func (user *User) Create(args *CreateArgs) error {
 		Username: args.Username,
 		Email:    args.Email,
 		Avatar:   args.Avatar,
+		Provider: args.Provider,
 	}
 
 	err := user.db.Where(models.User{

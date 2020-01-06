@@ -13,6 +13,7 @@ type User struct {
 	Username string    `gorm:"not null;" json:"username,omitempty"`
 	Email    string    `gorm:"not null;" json:"email,omitempty"`
 	Avatar   string    `gorm:"not null;" json:"avatar,omitempty"`
+	Provider string    `gorm:"not null;" json:"provider,omitempty"`
 	Projects []Project `gorm:"many2many:user_projects;"`
 }
 
@@ -22,9 +23,10 @@ var userSchema = gojsonschema.NewStringLoader(`{
 		"name": {"type": "string", "minLength": 1},
 		"username": {"type": "string", "minLength": 1},
 		"email": {"type": "string", "format": "email"},
-		"avatar": {"type": "string", "minLength": 1}
+		"avatar": {"type": "string", "minLength": 1},
+		"provider": {"type": "string", "minLength": 1}
 	},
-	"required": ["name", "username", "email", "avatar"]
+	"required": ["name", "username", "email", "avatar", "provider"]
 }`)
 
 // Validate model
