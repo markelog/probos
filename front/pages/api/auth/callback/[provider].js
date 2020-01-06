@@ -7,9 +7,9 @@ const handler = async (req, res) => {
   }
 
   passport.authenticate(provider, {
-    failureRedirect: "/auth",
+    failureRedirect: "/",
     successRedirect: "/"
-  })(req, res, (...asdargs) => {
+  })(req, res, (...args) => {
     console.log("auth callback", args);
     return true;
   });
