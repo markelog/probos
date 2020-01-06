@@ -27,7 +27,7 @@ func New(db *gorm.DB) *User {
 	}
 }
 
-// Create user and associated data
+// Create user
 func (user *User) Create(args *CreateArgs) error {
 	data := &models.User{
 		Name:     args.Name,
@@ -46,4 +46,18 @@ func (user *User) Create(args *CreateArgs) error {
 	}
 
 	return nil
+}
+
+// Get user
+func (user *User) Get(username string) (*models.User, error) {
+	var result models.User
+
+	err := user.db.Where(models.User{
+		Username: username,
+	}).Take(&result).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }
