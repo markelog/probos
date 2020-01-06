@@ -8,6 +8,7 @@ require (
 	github.com/asaskevich/govalidator v0.0.0-20190424111038-f61b66f89f4a // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/flosch/pongo2 v0.0.0-20190707114632-bbf5a6c351f4 // indirect
+	github.com/gavv/httpexpect v2.0.0+incompatible
 	github.com/gavv/monotime v0.0.0-20190418164738-30dba4353424 // indirect
 	github.com/go-errors/errors v1.0.1
 	github.com/google/go-querystring v1.0.0 // indirect
@@ -21,6 +22,7 @@ require (
 	github.com/kataras/iris/v12 v12.1.3
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/qor/validations v0.0.0-20171228122639-f364bca61b46
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect

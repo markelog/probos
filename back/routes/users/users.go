@@ -59,11 +59,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 		ctx.JSON(iris.Map{
 			"status":  "created",
 			"message": "Yey!",
-			"payload": iris.Map{
-				"status":  "success",
-				"message": "There you go",
-				"payload": user,
-			},
+			"payload": user,
 		})
 	})
 
