@@ -1,6 +1,6 @@
-import App from "next/app";
-import React from "react";
-import withIdentity from "../lib/withIdentity";
+import App from 'next/app';
+import React from 'react';
+import withIdentity from '../lib/withIdentity';
 
 class Probos extends App {
   render() {

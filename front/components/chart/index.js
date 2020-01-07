@@ -1,18 +1,18 @@
-import fetch from "isomorphic-unfetch";
+import fetch from 'isomorphic-unfetch';
 
-import { ResponsiveBar } from "@nivo/bar";
+import { ResponsiveBar } from '@nivo/bar';
 
-import { formatDistance, subDays } from "date-fns";
+import { formatDistance, subDays } from 'date-fns';
 
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-import config from "./config.js";
+import config from './config.js';
 
 const useStyles = makeStyles({
   card: {
@@ -31,7 +31,7 @@ const Chart = ({ data }) => {
   const classes = useStyles();
 
   return (
-    <div style={{ height: "400px" }}>
+    <div style={{ height: '400px' }}>
       <ResponsiveBar
         {...config}
         data={data}

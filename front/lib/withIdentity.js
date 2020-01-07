@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
-import nextCookie from "next-cookies";
-import redirect from "./redirect";
-import NextApp, { AppInitialProps, AppContext } from "next/app";
+import React, { useContext } from 'react';
+import nextCookie from 'next-cookies';
+import redirect from './redirect';
+import NextApp, { AppInitialProps, AppContext } from 'next/app';
 
 const IdentityContext = React.createContext(null);
 
-const rootPage = "/";
+const rootPage = '/';
 
 export const redirectToLogin = ctx => {
   if (
     (ctx && ctx.pathname === rootPage) ||
-    (typeof window !== "undefined" && window.location.pathname === rootPage)
+    (typeof window !== 'undefined' && window.location.pathname === rootPage)
   ) {
     return;
   }
@@ -42,7 +42,7 @@ const withIdentity = App => {
         });
       }
 
-      const serializedCookie = Buffer.from(auth, "base64").toString();
+      const serializedCookie = Buffer.from(auth, 'base64').toString();
 
       const {
         passport: { user }

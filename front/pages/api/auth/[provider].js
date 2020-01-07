@@ -1,4 +1,4 @@
-import withPassport, { passport } from "../../../lib/withPassport";
+import withPassport, { passport } from '../../../lib/withPassport';
 
 const Provider = (req, res) => {
   const { provider } = req.query;
@@ -7,7 +7,7 @@ const Provider = (req, res) => {
   }
 
   passport.authenticate(provider)(req, res, (...args) => {
-    console.log("passport authenticated", args);
+    console.log('passport authenticated', args);
   });
 };
 

@@ -1,7 +1,7 @@
-import { Strategy as GithubStrategy } from "passport-github";
-import fetch from "isomorphic-unfetch";
+import { Strategy as GithubStrategy } from 'passport-github';
+import fetch from 'isomorphic-unfetch';
 
-import appConfig from "../appConfig";
+import appConfig from '../appConfig';
 
 const API = process.env.API;
 
@@ -24,22 +24,22 @@ const strategy = new GithubStrategy(
     };
 
     fetch(`${API}/users`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
       .then(response => response.json())
       .then(response => {
-        if (response.status === "failed") {
+        if (response.status === 'failed') {
           throw new Error(response.message);
         }
 
         cb(null, data.username);
       })
       .catch(err => {
-        console.error("Cannot create a user", err);
+        console.error('Cannot create a user', err);
         cb(err, false);
       });
   }

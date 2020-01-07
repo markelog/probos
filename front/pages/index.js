@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
-import { useIdentity } from "../lib/withIdentity";
+import { makeStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
+import { useIdentity } from '../lib/withIdentity';
 
-import Layout from "../components/layout";
+import Layout from '../components/layout';
 
-import Graphs from "../components/graphs";
+import Graphs from '../components/graphs';
 
 const useStyles = makeStyles(theme => ({
   link: {

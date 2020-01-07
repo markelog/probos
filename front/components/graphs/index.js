@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import Typography from "@material-ui/core/Typography";
+import Typography from '@material-ui/core/Typography';
 
-import fetch from "isomorphic-unfetch";
+import fetch from 'isomorphic-unfetch';
 
-import Chart from "../chart";
-import Table from "../table";
+import Chart from '../chart';
+import Table from '../table';
 
 const API = process.env.API;
 

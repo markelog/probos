@@ -1,11 +1,11 @@
-import passport from "passport";
-import cookieSession from "cookie-session";
-import url from "url";
-import redirect from "micro-redirect";
-import { github } from "./passport";
-import { useIdentity } from "./withIdentity";
-import { Profile } from "passport-github";
-export { default as passport } from "passport";
+import passport from 'passport';
+import cookieSession from 'cookie-session';
+import url from 'url';
+import redirect from 'micro-redirect';
+import { github } from './passport';
+import { useIdentity } from './withIdentity';
+import { Profile } from 'passport-github';
+export { default as passport } from 'passport';
 
 passport.use(github);
 passport.serializeUser((user, done) => {
@@ -34,7 +34,7 @@ export default fn => (req, res) => {
   // session. This nesting of middleware handlers basically does what app.use(passport.initialize())
   // does in express.
   cookieSession({
-    name: "auth",
+    name: 'auth',
     signed: false,
     domain: url.parse(req.url).host,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours

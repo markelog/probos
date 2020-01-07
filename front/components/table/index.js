@@ -1,35 +1,35 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
 
-import MoreIcon from "@material-ui/icons/AddCircleOutline";
-import LessIcon from "@material-ui/icons/RemoveCircleOutline";
-import red from "@material-ui/core/colors/red";
-import green from "@material-ui/core/colors/green";
+import MoreIcon from '@material-ui/icons/AddCircleOutline';
+import LessIcon from '@material-ui/icons/RemoveCircleOutline';
+import red from '@material-ui/core/colors/red';
+import green from '@material-ui/core/colors/green';
 
-import prettyBytes from "pretty-bytes";
-import { formatDistance, subDays } from "date-fns";
+import prettyBytes from 'pretty-bytes';
+import { formatDistance, subDays } from 'date-fns';
 
 const useStyles = makeStyles({
   root: {},
   stiff: {
-    whiteSpace: "nowrap"
+    whiteSpace: 'nowrap'
   },
   MoreIcon: {
-    position: "relative",
+    position: 'relative',
     top: 5,
     color: red[500],
     fontSize: 20
   },
   LessIcon: {
-    position: "relative",
+    position: 'relative',
     top: 5,
     color: green[500],
     fontSize: 20
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 const diffFormat = (value, classes) => {
-  if (value.diff === "0") {
+  if (value.diff === '0') {
     return <span className={classes.stiff}>{value.diff}</span>;
   }
 
@@ -61,50 +61,50 @@ const diffFormat = (value, classes) => {
 
 const columns = [
   {
-    id: "size",
-    label: "size",
-    align: "right",
+    id: 'size',
+    label: 'size',
+    align: 'right',
     format: (value, classes) => {
       return <span className={classes.stiff}>{prettyBytes(value)}</span>;
     }
   },
   {
-    id: "gzip",
-    label: "gzip",
-    align: "right",
+    id: 'gzip',
+    label: 'gzip',
+    align: 'right',
     format: (value, classes) => {
       return <span className={classes.stiff}>{prettyBytes(value)}</span>;
     }
   },
   {
-    id: "sizeDiff",
-    label: "size diff",
-    align: "right",
+    id: 'sizeDiff',
+    label: 'size diff',
+    align: 'right',
     format: diffFormat
   },
   {
-    id: "gzipDiff",
-    label: "gzip diff",
-    align: "right",
+    id: 'gzipDiff',
+    label: 'gzip diff',
+    align: 'right',
     format: diffFormat
   },
   {
-    id: "author",
-    label: "author",
-    align: "right"
+    id: 'author',
+    label: 'author',
+    align: 'right'
   },
   {
-    id: "message",
-    label: "message",
-    align: "right",
+    id: 'message',
+    label: 'message',
+    align: 'right',
     format: (value, classes) => {
       return <span className={classes.stiff}>{value}</span>;
     }
   },
   {
-    id: "date",
-    label: "date",
-    align: "right",
+    id: 'date',
+    label: 'date',
+    align: 'right',
     format: (value, classes) => {
       const distanceDate = formatDistance(
         subDays(new Date(), 3),
@@ -120,11 +120,11 @@ function getDiff(previous, current) {
   const result = {
     sizeDiff: {
       increased: false,
-      diff: "0"
+      diff: '0'
     },
     gzipDiff: {
       increased: false,
-      diff: "0"
+      diff: '0'
     }
   };
 
@@ -154,8 +154,8 @@ function getDiff(previous, current) {
     result.gzipDiff.diff = result.gzipDiff.diff.toFixed(2);
   }
 
-  result.sizeDiff.diff += "";
-  result.gzipDiff.diff += "";
+  result.sizeDiff.diff += '';
+  result.gzipDiff.diff += '';
 
   return result;
 }

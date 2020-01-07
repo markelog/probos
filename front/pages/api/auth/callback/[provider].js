@@ -1,4 +1,4 @@
-import withPassport, { passport } from "../../../../lib/withPassport";
+import withPassport, { passport } from '../../../../lib/withPassport';
 
 const handler = async (req, res) => {
   const { provider } = req.query;
@@ -7,10 +7,10 @@ const handler = async (req, res) => {
   }
 
   passport.authenticate(provider, {
-    failureRedirect: "/",
-    successRedirect: "/"
+    failureRedirect: '/',
+    successRedirect: '/'
   })(req, res, (...args) => {
-    console.log("auth callback", args);
+    console.log('auth callback', args);
     return true;
   });
 };

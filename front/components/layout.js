@@ -1,9 +1,9 @@
-import Head from "next/head";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
+import Head from 'next/head';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   link: {
