@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Repos = function({ user, repository }) {
+const Repos = function(data) {
+  const { user, repository } = data;
   const classes = useStyles();
 
   return (
@@ -28,7 +29,7 @@ const Repos = function({ user, repository }) {
   );
 };
 
-Repos.getInitialProps = async ({ req, res, asPath }) => {
+Repos.getInitialProps = ({ asPath }) => {
   return {
     repository: asPath.replace('/repos/', '')
   };

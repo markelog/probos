@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
+  useFileSystemPublicRoutes: false,
   env: {
     API: process.env.API,
 

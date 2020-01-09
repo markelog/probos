@@ -1,9 +1,8 @@
-const isDevelopment = process.env.NODE_ENV !== 'production';
-const hostingURL = process.env.HOSTING_URL || 'http://localhost:3000';
+const dotenv = require('dotenv');
 
-const appConfig = {
-  isDevelopment,
-  hostingURL,
+dotenv.config();
+
+module.exports = {
   github: {
     passReqToCallback: false,
     clientID: process.env.GITHUB_CLIENT_ID,
@@ -12,5 +11,3 @@ const appConfig = {
     scope: 'user:email'
   }
 };
-
-export default appConfig;

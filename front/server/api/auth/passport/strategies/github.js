@@ -1,7 +1,7 @@
-import { Strategy as GithubStrategy } from 'passport-github';
-import fetch from 'isomorphic-unfetch';
+const GitHubStrategy = require('passport-github').Strategy;
+const fetch = require('isomorphic-unfetch');
 
-import appConfig from '../appConfig';
+const config = require('../config');
 
 const API = process.env.API;
 
@@ -12,8 +12,8 @@ const API = process.env.API;
 // behalf, along with the user's profile.  The function must invoke `cb`
 // with a user object, which will be exposed in the request as `req.user`
 // in api handlers after authentication.
-const strategy = new GithubStrategy(
-  appConfig.github,
+const strategy = new GitHubStrategy(
+  config.github,
   (accessToken, refreshToken, profile, cb) => {
     const data = {
       name: profile.displayName,
@@ -45,4 +45,4 @@ const strategy = new GithubStrategy(
   }
 );
 
-export default strategy;
+module.exports = strategy;
