@@ -24,7 +24,9 @@ app.prepare().then(() => {
   passport(server);
 
   server.get('/', jwtAuth, (req, res) => {
-    app.render(req, res, '/', req.user);
+    app.render(req, res, '/', {
+      user: req.user
+    });
   });
 
   server.get('/api/auth/logout', (req, res) => {
@@ -34,7 +36,9 @@ app.prepare().then(() => {
   });
 
   server.get(/repos\/(.*)/, jwtAuth, (req, res) => {
-    return app.render(req, res, '/repos', req.user);
+    return app.render(req, res, '/repos', {
+      user: req.user
+    });
   });
 
   server.all('*', (req, res) => {

@@ -24,7 +24,7 @@ function Index({ user }) {
   const User = () => {
     return (
       <>
-        <h1>{user}</h1>
+        <h1>{JSON.stringify(user)}</h1>
         <Link href="/api/auth/logout" color="inherit" className={classes.link}>
           logout
         </Link>
