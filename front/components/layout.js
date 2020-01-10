@@ -22,7 +22,7 @@ function Layout({ user, loading = false, children }) {
       </Container>
 
       <Head>
-        <title>Sizer</title>
+        <title>Probos</title>
       </Head>
     </>
   );

@@ -13,7 +13,12 @@ module.exports = function jwt(req, res, next) {
     fetch(`${API}/users/${user.user}`)
       .then(response => response.json())
       .then(response => {
-        req.user = response.payload;
+        const { payload } = response;
+        if (Object.keys(payload).length === 0) {
+          req.user = null;
+        } else {
+          req.user = response.payload;
+        }
         next();
       })
       .catch(next);

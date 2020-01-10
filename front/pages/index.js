@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 
 import Layout from '../components/layout';
-
 import Graphs from '../components/graphs';
+import Top from '../components/top';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -15,27 +15,10 @@ const useStyles = makeStyles(theme => ({
 
 function Index({ user }) {
   const classes = useStyles();
-  const SignIn = () => (
-    <p>
-      <a href="/api/auth/github">Sign in with github</a>
-    </p>
-  );
-
-  const User = () => {
-    return (
-      <>
-        <h1>{JSON.stringify(user)}</h1>
-        <Link href="/api/auth/logout" color="inherit" className={classes.link}>
-          logout
-        </Link>
-      </>
-    );
-  };
 
   return (
     <main>
-      {user ? <User /> : <SignIn />}
-
+      <Top user={user} />
       <Layout>
         <Graphs repository="github.com/markelog/adit" branch="master" />
       </Layout>
