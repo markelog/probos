@@ -1,7 +1,6 @@
 const express = require('express');
 const next = require('next');
 const cookie = require('cookie-parser');
-const body = require('body-parser');
 const dotenv = require('dotenv');
 
 const jwtAuth = require('./middlewares/jwt');
@@ -18,7 +17,7 @@ app.prepare().then(() => {
   const server = express();
 
   server.use(cookie());
-  server.use(body.urlencoded({ extended: true }));
+  server.use(express.urlencoded({ extended: true }));
 
   api(server);
   passport(server);
@@ -36,7 +35,13 @@ app.prepare().then(() => {
   });
 
   server.get(/repos\/(.*)/, jwtAuth, (req, res) => {
-    return app.render(req, res, '/repos', {
+    return app.render(req, res, '/repo/list', {
+      user: req.user
+    });
+  });
+
+  server.get('/repo/add', jwtAuth, (req, res) => {
+    return app.render(req, res, '/repo/add', {
       user: req.user
     });
   });
