@@ -9,6 +9,7 @@ import (
 	"github.com/markelog/pilgrima/logger"
 	"github.com/markelog/pilgrima/routes"
 	"github.com/markelog/pilgrima/routes/common"
+	"github.com/markelog/pilgrima/routes/github"
 	"github.com/markelog/pilgrima/routes/projects"
 	"github.com/markelog/pilgrima/routes/reports"
 	"github.com/markelog/pilgrima/routes/root"
@@ -39,6 +40,7 @@ func main() {
 	reports.Up(app, db, log)
 	users.Up(app, db, log)
 	common.Up(app, db, log)
+	github.Up(app, db, log)
 
 	log.WithFields(logrus.Fields{
 		"port": port,
