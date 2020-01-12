@@ -8,13 +8,13 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	"github.com/markelog/pilgrima/database"
-	"github.com/markelog/pilgrima/logger"
-	"github.com/markelog/pilgrima/routes/common"
-	"github.com/markelog/pilgrima/test/env"
-	"github.com/markelog/pilgrima/test/request"
-	"github.com/markelog/pilgrima/test/routes"
-	"github.com/markelog/pilgrima/test/schema"
+	"github.com/markelog/probos/back/database"
+	"github.com/markelog/probos/back/logger"
+	"github.com/markelog/probos/back/routes/common"
+	"github.com/markelog/probos/back/test/env"
+	"github.com/markelog/probos/back/test/request"
+	"github.com/markelog/probos/back/test/routes"
+	"github.com/markelog/probos/back/test/schema"
 )
 
 var (

@@ -3,12 +3,12 @@ package tokens
 import (
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	controller "github.com/markelog/pilgrima/controllers/token"
+	controller "github.com/markelog/probos/back/controllers/token"
 	"github.com/sirupsen/logrus"
 )
 
-type postProject struct {
-	Project uint `json:"project"`
+type postRepository struct {
+	Repository uint `json:"Repository"`
 }
 
 // Up token route
@@ -16,20 +16,20 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 	ctrl := controller.New(db)
 
 	app.Post("/tokens", func(ctx iris.Context) {
-		var params postProject
+		var params postRepository
 		ctx.ReadJSON(&params)
 
-		result, err := ctrl.Create(params.Project)
+		result, err := ctrl.Create(params.Repository)
 
 		if err != nil && err.Error() == "record not found" {
 			log.WithFields(logrus.Fields{
-				"project": params.Project,
-			}).Error("Can't find this project")
+				"Repository": params.Repository,
+			}).Error("Can't find this Repository")
 
 			ctx.StatusCode(iris.StatusBadRequest)
 			ctx.JSON(iris.Map{
 				"status":  "failed",
-				"message": "Can't find this project",
+				"message": "Can't find this Repository",
 				"payload": iris.Map{},
 			})
 			return
@@ -37,7 +37,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 
 		if err != nil {
 			log.WithFields(logrus.Fields{
-				"project": params.Project,
+				"Repository": params.Repository,
 				"error":   err,
 			}).Error("Couldn't create the token")
 
@@ -51,7 +51,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 		}
 
 		log.WithFields(logrus.Fields{
-			"project": params.Project,
+			"Repository": params.Repository,
 			"token":   result.Token,
 		}).Info("Token created")
 

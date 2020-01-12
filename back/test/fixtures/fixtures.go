@@ -2,7 +2,7 @@ package fixtures
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/markelog/pilgrima/logger"
+	"github.com/markelog/probos/back/logger"
 	testfixtures "gopkg.in/testfixtures.v2"
 )
 

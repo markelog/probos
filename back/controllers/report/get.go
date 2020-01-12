@@ -2,7 +2,7 @@ package reports
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/markelog/pilgrima/database/models"
+	"github.com/markelog/probos/back/database/models"
 )
 
 // GetArgs are arguments for get handler
@@ -32,14 +32,14 @@ func (report *Report) Get(args *GetArgs) ([]*GetResult, error) {
 	var (
 		commits []models.Commit
 
-		project = report.db.Table("projects").Select("id").Where(
+		Repository = report.db.Table("repositories").Select("id").Where(
 			"repository = ?",
 			args.Repository,
 		).QueryExpr()
 
 		branch = report.db.Table("branches").Select("id").Where(
-			"name = ? AND project_id = (?)",
-			args.Branch, project,
+			"name = ? AND repository_id = (?)",
+			args.Branch, Repository,
 		).QueryExpr()
 	)
 

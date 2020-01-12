@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Up project route
+// Up Repository route
 func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 	app.OnErrorCode(iris.StatusNotFound, func(ctx iris.Context) {
 		log.WithFields(logrus.Fields{

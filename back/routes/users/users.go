@@ -3,7 +3,7 @@ package users
 import (
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	controller "github.com/markelog/pilgrima/controllers/user"
+	controller "github.com/markelog/probos/back/controllers/user"
 	"github.com/sirupsen/logrus"
 )
 
@@ -38,7 +38,7 @@ func setGetError(log *logrus.Logger, username string, ctx iris.Context, err erro
 	})
 }
 
-// Up project route
+// Up Repository route
 func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 	ctrl := controller.New(db)
 

@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/markelog/pilgrima/test/request"
-	"github.com/markelog/pilgrima/test/schema"
+	"github.com/markelog/probos/back/test/request"
+	"github.com/markelog/probos/back/test/schema"
 )
 
 func TestError(t *testing.T) {
@@ -14,7 +14,7 @@ func TestError(t *testing.T) {
 	req := request.Up(app, t)
 
 	data := map[string]interface{}{
-		"project": &map[string]interface{}{
+		"Repository": &map[string]interface{}{
 			"repository": "github.com/markelog/adit",
 			"branch": map[string]interface{}{
 				"name": "master",
@@ -54,13 +54,13 @@ func TestError(t *testing.T) {
 		Value("status").Equal("failed")
 }
 
-func TestEmptyProject(t *testing.T) {
+func TestEmptyRepository(t *testing.T) {
 	teardown()
 	defer teardown()
 	req := request.Up(app, t)
 
 	data := map[string]interface{}{
-		"project": &map[string]interface{}{
+		"Repository": &map[string]interface{}{
 			"repository": "",
 			"branch": map[string]interface{}{
 				"name": "master",
@@ -102,7 +102,7 @@ func TestSuccess(t *testing.T) {
 	req := request.Up(app, t)
 
 	data := map[string]interface{}{
-		"project": &map[string]interface{}{
+		"Repository": &map[string]interface{}{
 			"repository": "github.com/markelog/adit",
 			"branch": map[string]interface{}{
 				"name": "master",
@@ -140,7 +140,7 @@ func TestSuccessForSecondTime(t *testing.T) {
 	req := request.Up(app, t)
 
 	first := map[string]interface{}{
-		"project": map[string]interface{}{
+		"Repository": map[string]interface{}{
 			"repository": "github.com/markelog/adit",
 			"branch": map[string]interface{}{
 				"name": "master",
@@ -164,7 +164,7 @@ func TestSuccessForSecondTime(t *testing.T) {
 	}
 
 	second := map[string]interface{}{
-		"project": map[string]interface{}{
+		"Repository": map[string]interface{}{
 			"repository": "github.com/markelog/adit",
 			"branch": map[string]interface{}{
 				"name": "master",

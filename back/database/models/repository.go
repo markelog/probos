@@ -6,17 +6,17 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
-// Project model
-type Project struct {
+// Repository model
+type Repository struct {
 	gorm.Model
 	Name       string `gorm:"not null;" json:"name,omitempty"`
 	Repository string `gorm:"unique; not null;" json:"repository,omitempty"`
 	Token      *Token
 	Branches   []Branch `json:"branches,omitempty"`
-	Users      []User   `gorm:"many2many:project_users;"`
+	Users      []User   `gorm:"many2many:repository_users;"`
 }
 
-var projectSchema = gojsonschema.NewStringLoader(`{
+var repositorySchema = gojsonschema.NewStringLoader(`{
 	"type": "object",
 	"properties": {
 		"repository": {"type": "string", "minLength": 1},
@@ -38,10 +38,10 @@ var projectSchema = gojsonschema.NewStringLoader(`{
 }`)
 
 // Validate model
-func (project Project) Validate(db *gorm.DB) {
-	projectLoader := gojsonschema.NewGoLoader(project)
+func (repository Repository) Validate(db *gorm.DB) {
+	repositoryLoader := gojsonschema.NewGoLoader(repository)
 
-	check, err := gojsonschema.Validate(projectSchema, projectLoader)
+	check, err := gojsonschema.Validate(repositorySchema, repositoryLoader)
 	if err != nil {
 		db.AddError(err)
 		return

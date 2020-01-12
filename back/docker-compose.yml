@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 services:
   db:
     image: postgres
-    container_name: db-pilgrima
+    container_name: db-probos
     environment:
       POSTGRES_DB: "${DATABASE_NAME}"
       POSTGRES_USER: "${DATABASE_USER}"
@@ -10,7 +10,7 @@ services:
     ports:
       - "${DATABASE_PORT}:5432"
   app:
-    container_name: app-pilgrima
+    container_name: app-probos
     build:
       context: .
       dockerfile: Dockerfile.development
@@ -18,7 +18,7 @@ services:
     environment:
       DATABASE_HOST: db
     volumes:
-      - ./:/go/src/github.com/markelog/pilgrima
+      - ./:/go/src/github.com/markelog/probos
     depends_on:
       - db
     links:

@@ -3,7 +3,7 @@ package reports
 import (
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	controller "github.com/markelog/pilgrima/controllers/report"
+	controller "github.com/markelog/probos/back/controllers/report"
 	"github.com/sirupsen/logrus"
 )
 
@@ -11,8 +11,8 @@ func setPostError(log *logrus.Logger, params *controller.CreateArgs, ctx iris.Co
 	errorString := err.Error()
 
 	log.WithFields(logrus.Fields{
-		"project": params.Project.Repository,
-		"branch":  params.Project.Branch.Name,
+		"Repository": params.Repository.Repository,
+		"branch":  params.Repository.Branch.Name,
 	}).Error(errorString)
 
 	ctx.StatusCode(iris.StatusBadRequest)
@@ -25,7 +25,7 @@ func setPostError(log *logrus.Logger, params *controller.CreateArgs, ctx iris.Co
 
 func setLastError(log *logrus.Logger, params *controller.LastArgs, ctx iris.Context, err error) {
 	log.WithFields(logrus.Fields{
-		"project": params.Repository,
+		"Repository": params.Repository,
 		"branch":  params.Branch,
 	}).Error(err.Error())
 
@@ -39,7 +39,7 @@ func setLastError(log *logrus.Logger, params *controller.LastArgs, ctx iris.Cont
 
 func setGetError(log *logrus.Logger, params *controller.GetArgs, ctx iris.Context, err error) {
 	log.WithFields(logrus.Fields{
-		"project": params.Repository,
+		"Repository": params.Repository,
 		"branch":  params.Branch,
 	}).Error(err.Error())
 
@@ -71,7 +71,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 		}
 
 		log.WithFields(logrus.Fields{
-			"report": params.Project.Branch.Commit.Report,
+			"report": params.Repository.Branch.Commit.Report,
 		}).Info("Report created")
 
 		ctx.StatusCode(iris.StatusOK)

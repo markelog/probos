@@ -5,14 +5,13 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
+	"github.com/markelog/probos/back/database/models"
+	"github.com/markelog/probos/back/env"
+	"github.com/markelog/probos/back/logger"
 	"github.com/qor/validations"
-
-	"github.com/markelog/pilgrima/database/models"
-	"github.com/markelog/pilgrima/env"
-	"github.com/markelog/pilgrima/logger"
 )
 
-const enableLogs = true
+const enableLogs = false
 
 // Up database
 func Up() *gorm.DB {
@@ -54,7 +53,7 @@ func Up() *gorm.DB {
 	// Migrations
 	err = db.AutoMigrate(
 		&models.User{},
-		&models.Project{},
+		&models.Repository{},
 		&models.Branch{},
 		&models.Commit{},
 		&models.Report{},
@@ -68,7 +67,7 @@ func Up() *gorm.DB {
 	// Foreign keys
 	db.Model(
 		&models.Branch{},
-	).AddForeignKey("project_id", "projects(id)", "CASCADE", "CASCADE")
+	).AddForeignKey("repository_id", "Repositories(id)", "CASCADE", "CASCADE")
 
 	db.Model(
 		&models.Commit{},

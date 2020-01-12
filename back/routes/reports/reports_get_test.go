@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/markelog/pilgrima/test/request"
+	"github.com/markelog/probos/back/test/request"
 )
 
 func TestGet(t *testing.T) {
@@ -13,7 +13,7 @@ func TestGet(t *testing.T) {
 	req := request.Up(app, t)
 
 	first := map[string]interface{}{
-		"project": map[string]interface{}{
+		"Repository": map[string]interface{}{
 			"repository": "github.com/markelog/adit",
 			"branch": map[string]interface{}{
 				"name": "master",
@@ -37,7 +37,7 @@ func TestGet(t *testing.T) {
 	}
 
 	second := map[string]interface{}{
-		"project": map[string]interface{}{
+		"Repository": map[string]interface{}{
 			"repository": "github.com/markelog/adit",
 			"branch": map[string]interface{}{
 				"name": "master",
@@ -61,7 +61,7 @@ func TestGet(t *testing.T) {
 	}
 
 	third := map[string]interface{}{
-		"project": map[string]interface{}{
+		"Repository": map[string]interface{}{
 			"repository": "github.com/oleg-koval/ya-skeleton",
 			"branch": map[string]interface{}{
 				"name": "WIP",
@@ -85,7 +85,7 @@ func TestGet(t *testing.T) {
 	}
 
 	fourth := map[string]interface{}{
-		"project": map[string]interface{}{
+		"Repository": map[string]interface{}{
 			"repository": "github.com/oleg-koval/ya-skeleton",
 			"branch": map[string]interface{}{
 				"name": "master",

@@ -9,12 +9,12 @@ import (
 // User model
 type User struct {
 	gorm.Model
-	Name     string    `gorm:"not null;" json:"name,omitempty"`
-	Username string    `gorm:"not null;" json:"username,omitempty"`
-	Email    string    `gorm:"not null;" json:"email,omitempty"`
-	Avatar   string    `gorm:"not null;" json:"avatar,omitempty"`
-	Provider string    `gorm:"not null;" json:"provider,omitempty"`
-	Projects []Project `gorm:"many2many:user_projects;"`
+	Name         string       `gorm:"not null;" json:"name,omitempty"`
+	Username     string       `gorm:"not null;" json:"username,omitempty"`
+	Email        string       `gorm:"not null;" json:"email,omitempty"`
+	Avatar       string       `gorm:"not null;" json:"avatar,omitempty"`
+	Provider     string       `gorm:"not null;" json:"provider,omitempty"`
+	Repositories []Repository `gorm:"many2many:user_repositories;association_autocreate:false"`
 }
 
 var userSchema = gojsonschema.NewStringLoader(`{

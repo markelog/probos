@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/markelog/pilgrima/test/request"
-	"github.com/markelog/pilgrima/test/schema"
+	"github.com/markelog/probos/back/test/request"
+	"github.com/markelog/probos/back/test/schema"
 	"gopkg.in/gavv/httpexpect.v1"
 )
 

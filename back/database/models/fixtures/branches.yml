@@ -1,6 +1,6 @@
 - id: 1
   created_at: 2018-12-12T09:53:02.189Z
-  updated_at: 2018-12-12T09:53:02.189Z	
-  deleted_at: null	
+  updated_at: 2018-12-12T09:53:02.189Z
+  deleted_at: null
   name: master
-  project_id: 1
+  repository_id: 1

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/markelog/pilgrima/database/models"
+	"github.com/markelog/probos/back/database/models"
 )
 
 // Report type
@@ -16,7 +16,7 @@ type Report struct {
 
 // CreateArgs are create arguments for report type
 type CreateArgs struct {
-	Project struct {
+	Repository struct {
 		Repository string `json:"repository"`
 		Branch     struct {
 			Name   string `json:"name"`
@@ -31,7 +31,7 @@ type CreateArgs struct {
 				} `json:"report"`
 			} `json:"commit"`
 		} `json:"branch"`
-	} `json:"project"`
+	} `json:"Repository"`
 }
 
 // New report
@@ -44,22 +44,22 @@ func New(db *gorm.DB) *Report {
 // Create report and associated data
 func (report *Report) Create(args *CreateArgs) (err error) {
 	var (
-		project models.Project
-		branch  models.Branch
-		commit  = &models.Commit{
+		Repository models.Repository
+		branch     models.Branch
+		commit     = &models.Commit{
 			BranchID: branch.ID,
-			Hash:     args.Project.Branch.Commit.Hash,
-			Author:   args.Project.Branch.Commit.Author,
-			Message:  args.Project.Branch.Commit.Message,
-			Date:     args.Project.Branch.Commit.Date,
+			Hash:     args.Repository.Branch.Commit.Hash,
+			Author:   args.Repository.Branch.Commit.Author,
+			Message:  args.Repository.Branch.Commit.Message,
+			Date:     args.Repository.Branch.Commit.Date,
 		}
 
 		tx = report.db.Begin()
 	)
 
-	err = tx.Where(models.Project{
-		Repository: args.Project.Repository,
-	}).FirstOrCreate(&project).Error
+	err = tx.Where(models.Repository{
+		Repository: args.Repository.Repository,
+	}).FirstOrCreate(&Repository).Error
 
 	if err != nil {
 		tx.Rollback()
@@ -67,8 +67,8 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 	}
 
 	err = tx.Where(models.Branch{
-		ProjectID: project.ID,
-		Name:      args.Project.Branch.Name,
+		RepositoryID: Repository.ID,
+		Name:         args.Repository.Branch.Name,
 	}).FirstOrCreate(&branch).Error
 
 	if err != nil {
@@ -78,11 +78,11 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 
 	err = tx.Where(models.Commit{
 		BranchID: branch.ID,
-		Hash:     args.Project.Branch.Commit.Hash,
+		Hash:     args.Repository.Branch.Commit.Hash,
 	}).Assign(models.Commit{
-		Author:  args.Project.Branch.Commit.Author,
-		Message: args.Project.Branch.Commit.Message,
-		Date:    args.Project.Branch.Commit.Date,
+		Author:  args.Repository.Branch.Commit.Author,
+		Message: args.Repository.Branch.Commit.Message,
+		Date:    args.Repository.Branch.Commit.Date,
 	}).FirstOrCreate(&commit).Error
 
 	if err != nil {
@@ -91,7 +91,7 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 	}
 
 	reports := []*models.Report{}
-	for key, data := range args.Project.Branch.Commit.Report {
+	for key, data := range args.Repository.Branch.Commit.Report {
 		reports = append(reports, &models.Report{
 			Name: key,
 			Size: data.Size,
@@ -137,14 +137,14 @@ func (report *Report) Last(args *LastArgs) (result LastResult, err error) {
 	var (
 		reports []models.Report
 
-		project = report.db.Table("projects").Select("id").Where(
+		Repository = report.db.Table("repositories").Select("id").Where(
 			"repository = ?",
 			args.Repository,
 		).QueryExpr()
 
 		branch = report.db.Table("branches").Select("id").Where(
-			"name = ? AND project_id = (?)",
-			args.Branch, project,
+			"name = ? AND repository_id = (?)",
+			args.Branch, Repository,
 		).QueryExpr()
 
 		commit = report.db.Table("commits").Select("id").Where(

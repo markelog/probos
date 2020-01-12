@@ -1,4 +1,4 @@
-module github.com/markelog/pilgrima
+module github.com/markelog/probos/back
 
 go 1.13
 

@@ -1,23 +1,26 @@
 package users
 
 import (
+	"fmt"
+
+	"github.com/davecgh/go-spew/spew"
 	"github.com/jinzhu/gorm"
-	"github.com/markelog/pilgrima/database/models"
+	"github.com/markelog/probos/back/database/models"
 )
 
 // User type
 type User struct {
-	db    *gorm.DB
-	model *gorm.DB
+	db *gorm.DB
 }
 
 // CreateArgs are create arguments for user type
 type CreateArgs struct {
-	Name     string `json:"name,omitempty"`
-	Username string `json:"username,omitempty"`
-	Email    string `json:"email,omitempty"`
-	Avatar   string `json:"avatar,omitempty"`
-	Provider string `json:"provider,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Username     string   `json:"username,omitempty"`
+	Email        string   `json:"email,omitempty"`
+	Avatar       string   `json:"avatar,omitempty"`
+	Provider     string   `json:"provider,omitempty"`
+	Repositories []string `json:"repositories,omitempty"`
 }
 
 // New user
@@ -29,12 +32,23 @@ func New(db *gorm.DB) *User {
 
 // Create user
 func (user *User) Create(args *CreateArgs) error {
+	repositories := []models.Repository{}
+	for _, repository := range args.Repositories {
+		prj := models.Repository{
+			Repository: fmt.Sprintf("github.com/%s/", repository),
+		}
+		repositories = append(repositories, prj)
+	}
+
+	spew.Dump(repositories)
+
 	data := &models.User{
-		Name:     args.Name,
-		Username: args.Username,
-		Email:    args.Email,
-		Avatar:   args.Avatar,
-		Provider: args.Provider,
+		Name:         args.Name,
+		Username:     args.Username,
+		Email:        args.Email,
+		Avatar:       args.Avatar,
+		Provider:     args.Provider,
+		Repositories: repositories,
 	}
 
 	err := user.db.Where(models.User{

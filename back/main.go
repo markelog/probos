@@ -4,17 +4,17 @@ import (
 	"os"
 
 	"github.com/kataras/iris/v12"
-	"github.com/markelog/pilgrima/database"
-	"github.com/markelog/pilgrima/env"
-	"github.com/markelog/pilgrima/logger"
-	"github.com/markelog/pilgrima/routes"
-	"github.com/markelog/pilgrima/routes/common"
-	"github.com/markelog/pilgrima/routes/github"
-	"github.com/markelog/pilgrima/routes/projects"
-	"github.com/markelog/pilgrima/routes/reports"
-	"github.com/markelog/pilgrima/routes/root"
-	"github.com/markelog/pilgrima/routes/tokens"
-	"github.com/markelog/pilgrima/routes/users"
+	"github.com/markelog/probos/back/database"
+	"github.com/markelog/probos/back/env"
+	"github.com/markelog/probos/back/logger"
+	"github.com/markelog/probos/back/routes"
+	"github.com/markelog/probos/back/routes/common"
+	"github.com/markelog/probos/back/routes/github"
+	"github.com/markelog/probos/back/routes/repositories"
+	"github.com/markelog/probos/back/routes/reports"
+	"github.com/markelog/probos/back/routes/root"
+	"github.com/markelog/probos/back/routes/tokens"
+	"github.com/markelog/probos/back/routes/users"
 	"github.com/sirupsen/logrus"
 )
 
@@ -36,7 +36,7 @@ func main() {
 
 	root.Up(app, db, log)
 	tokens.Up(app, db, log)
-	projects.Up(app, db, log)
+	repositories.Up(app, db, log)
 	reports.Up(app, db, log)
 	users.Up(app, db, log)
 	common.Up(app, db, log)

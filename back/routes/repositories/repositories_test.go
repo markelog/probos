@@ -1,4 +1,4 @@
-package projects_test
+package repositories_test
 
 import (
 	"io/ioutil"
@@ -8,13 +8,13 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	"github.com/markelog/pilgrima/database"
-	"github.com/markelog/pilgrima/logger"
-	"github.com/markelog/pilgrima/routes/projects"
-	"github.com/markelog/pilgrima/test/env"
-	"github.com/markelog/pilgrima/test/request"
-	"github.com/markelog/pilgrima/test/routes"
-	"github.com/markelog/pilgrima/test/schema"
+	"github.com/markelog/probos/back/database"
+	"github.com/markelog/probos/back/logger"
+	"github.com/markelog/probos/back/routes/repositories"
+	"github.com/markelog/probos/back/test/env"
+	"github.com/markelog/probos/back/test/request"
+	"github.com/markelog/probos/back/test/routes"
+	"github.com/markelog/probos/back/test/schema"
 )
 
 var (
@@ -24,7 +24,7 @@ var (
 
 func teardown() {
 	db.Raw("TRUNCATE users CASCADE;").Row()
-	db.Raw("TRUNCATE projects CASCADE;").Row()
+	db.Raw("TRUNCATE Repositories CASCADE;").Row()
 	db.Raw("TRUNCATE tokens CASCADE;").Row()
 }
 
@@ -36,7 +36,7 @@ func TestMain(m *testing.M) {
 	log := logger.Up()
 	log.Out = ioutil.Discard
 
-	projects.Up(app, db, log)
+	Repositories.Up(app, db, log)
 
 	app.Build()
 
@@ -51,7 +51,7 @@ func TestAbsenceOfARepository(t *testing.T) {
 		"name": "test",
 	}
 
-	token := req.POST("/projects").
+	token := req.POST("/Repositories").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(data).
 		Expect().
@@ -72,10 +72,10 @@ func TestAbsenceOfAName(t *testing.T) {
 	req := request.Up(app, t)
 
 	data := map[string]interface{}{
-		"repository": "https://github.com/markelog/pilgrima",
+		"repository": "https://github.com/markelog/probos",
 	}
 
-	token := req.POST("/projects").
+	token := req.POST("/Repositories").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(data).
 		Expect().
@@ -95,7 +95,7 @@ func TestAbsence(t *testing.T) {
 	defer teardown()
 	req := request.Up(app, t)
 
-	token := req.POST("/projects").
+	token := req.POST("/Repositories").
 		WithHeader("Content-Type", "application/json").
 		Expect().
 		Status(http.StatusBadRequest)
@@ -118,16 +118,16 @@ func TestSuccess(t *testing.T) {
 
 	data := map[string]interface{}{
 		"name":       "yo",
-		"repository": "github.com/markelog/pilgrima",
+		"repository": "github.com/markelog/probos",
 	}
 
-	project := req.POST("/projects").
+	Repository := req.POST("/Repositories").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(data).
 		Expect().
 		Status(http.StatusOK)
 
-	project.JSON().Schema(schema.Response)
+	Repository.JSON().Schema(schema.Response)
 }
 
 func TestList(t *testing.T) {
@@ -137,16 +137,16 @@ func TestList(t *testing.T) {
 
 	data := map[string]interface{}{
 		"name":       "yo",
-		"repository": "github.com/markelog/pilgrima",
+		"repository": "github.com/markelog/probos",
 	}
 
-	req.POST("/projects").
+	req.POST("/Repositories").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(data).
 		Expect().
 		Status(http.StatusOK)
 
-	result := req.GET("/projects").
+	result := req.GET("/Repositories").
 		Expect().
 		Status(http.StatusOK).
 		JSON()
@@ -157,7 +157,7 @@ func TestList(t *testing.T) {
 		Element(0).Object()
 
 	element.Value("name").Equal("yo")
-	element.Value("repository").Equal("github.com/markelog/pilgrima")
+	element.Value("repository").Equal("github.com/markelog/probos")
 }
 
 func TestAbsentList(t *testing.T) {
@@ -165,7 +165,7 @@ func TestAbsentList(t *testing.T) {
 	teardown()
 	req := request.Up(app, t)
 
-	response := req.GET("/projects").
+	response := req.GET("/Repositories").
 		Expect().
 		Status(http.StatusNotFound)
 

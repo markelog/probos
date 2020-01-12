@@ -4,7 +4,7 @@ import (
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/middleware/recover"
-	"github.com/markelog/pilgrima/logger"
+	"github.com/markelog/probos/back/logger"
 )
 
 // Up app

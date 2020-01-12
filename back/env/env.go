@@ -5,7 +5,7 @@ import (
 	"path"
 
 	"github.com/jinzhu/gorm"
-	"github.com/markelog/pilgrima/logger"
+	"github.com/markelog/probos/back/logger"
 	testfixtures "gopkg.in/testfixtures.v2"
 
 	"github.com/joho/godotenv"

@@ -7,11 +7,11 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	"github.com/markelog/pilgrima/database"
-	"github.com/markelog/pilgrima/logger"
-	"github.com/markelog/pilgrima/routes/reports"
-	"github.com/markelog/pilgrima/test/env"
-	"github.com/markelog/pilgrima/test/routes"
+	"github.com/markelog/probos/back/database"
+	"github.com/markelog/probos/back/logger"
+	"github.com/markelog/probos/back/routes/reports"
+	"github.com/markelog/probos/back/test/env"
+	"github.com/markelog/probos/back/test/routes"
 )
 
 var (
@@ -21,7 +21,7 @@ var (
 
 func teardown() {
 	db.Raw("TRUNCATE users CASCADE;").Row()
-	db.Raw("TRUNCATE projects CASCADE;").Row()
+	db.Raw("TRUNCATE Repositories CASCADE;").Row()
 	db.Raw("TRUNCATE reports CASCADE;").Row()
 	db.Raw("TRUNCATE tokens CASCADE;").Row()
 }

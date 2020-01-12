@@ -9,14 +9,14 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	"github.com/markelog/pilgrima/database"
-	"github.com/markelog/pilgrima/logger"
-	"github.com/markelog/pilgrima/routes/tokens"
-	"github.com/markelog/pilgrima/test/env"
-	"github.com/markelog/pilgrima/test/fixtures"
-	"github.com/markelog/pilgrima/test/request"
-	"github.com/markelog/pilgrima/test/routes"
-	"github.com/markelog/pilgrima/test/schema"
+	"github.com/markelog/probos/back/database"
+	"github.com/markelog/probos/back/logger"
+	"github.com/markelog/probos/back/routes/tokens"
+	"github.com/markelog/probos/back/test/env"
+	"github.com/markelog/probos/back/test/fixtures"
+	"github.com/markelog/probos/back/test/request"
+	"github.com/markelog/probos/back/test/routes"
+	"github.com/markelog/probos/back/test/schema"
 	testfixtures "gopkg.in/testfixtures.v2"
 )
 
@@ -36,7 +36,7 @@ func prepare() *iris.Application {
 
 func teardown() {
 	db.Raw("TRUNCATE users CASCADE;").Row()
-	db.Raw("TRUNCATE projects CASCADE;").Row()
+	db.Raw("TRUNCATE Repositories CASCADE;").Row()
 	db.Raw("TRUNCATE tokens CASCADE;").Row()
 }
 func TestMain(m *testing.M) {
@@ -73,7 +73,7 @@ func TestSuccess(t *testing.T) {
 	req := request.Up(app, t)
 
 	data := map[string]interface{}{
-		"project": 1,
+		"Repository": 1,
 	}
 
 	token := req.POST("/tokens").

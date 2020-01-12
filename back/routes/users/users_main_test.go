@@ -5,11 +5,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/markelog/pilgrima/database"
-	"github.com/markelog/pilgrima/logger"
-	"github.com/markelog/pilgrima/routes/users"
-	"github.com/markelog/pilgrima/test/env"
-	"github.com/markelog/pilgrima/test/routes"
+	"github.com/markelog/probos/back/database"
+	"github.com/markelog/probos/back/logger"
+	"github.com/markelog/probos/back/routes/users"
+	"github.com/markelog/probos/back/test/env"
+	"github.com/markelog/probos/back/test/routes"
 )
 
 func TestMain(m *testing.M) {

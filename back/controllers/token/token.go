@@ -5,13 +5,13 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/markelog/pilgrima/database/models"
+	"github.com/markelog/probos/back/database/models"
 )
 
 // Token type
 type Token struct {
 	Token   string
-	project uint
+	Repository uint
 	db      *gorm.DB
 	Model   *models.Token
 }
@@ -36,10 +36,10 @@ func New(db *gorm.DB) *Token {
 }
 
 // Create token
-func (token *Token) Create(project uint) (*models.Token, error) {
+func (token *Token) Create(Repository uint) (*models.Token, error) {
 	var (
-		projectModel models.Project
-		value        = token.db.Model(token.project).First(&projectModel)
+		RepositoryModel models.Repository
+		value        = token.db.Model(token.Repository).First(&RepositoryModel)
 	)
 
 	if value.Error != nil {
@@ -48,7 +48,7 @@ func (token *Token) Create(project uint) (*models.Token, error) {
 
 	token.Model = &models.Token{
 		Token:   token.Token,
-		Project: projectModel,
+		Repository: RepositoryModel,
 	}
 
 	value = token.db.Create(&token.Model)

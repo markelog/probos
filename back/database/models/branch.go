@@ -9,16 +9,16 @@ import (
 // Branch model
 type Branch struct {
 	gorm.Model
-	Name      string   `json:"name,omitempty"`
-	ProjectID uint     `json:"project,omitempty"`
-	Commits   []Commit `json:"commits,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	RepositoryID uint     `json:"repository,omitempty"`
+	Commits      []Commit `json:"commits,omitempty"`
 }
 
 var branchSchema = gojsonschema.NewStringLoader(`{
 	"type": "object",
 	"properties": {
 		"name": {"type": "string", "minLength": 1},
-		"project": {"type": "number", "minimum": 1},
+		"Repository": {"type": "number", "minimum": 1},
 		"commits": {
 			"type": "array", 
 			"items": {
@@ -26,7 +26,7 @@ var branchSchema = gojsonschema.NewStringLoader(`{
 			}
 		}
 	},
-	"required": ["name", "project"]
+	"required": ["name", "Repository"]
 }`)
 
 // Validate model

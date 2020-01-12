@@ -8,7 +8,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
-	ctrl "github.com/markelog/pilgrima/controllers/github"
+	ctrl "github.com/markelog/probos/back/controllers/github"
 	"github.com/palantir/go-githubapp/githubapp"
 	"github.com/sirupsen/logrus"
 )
@@ -23,17 +23,23 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 	}
 
 	config.App.IntegrationID = id
-	config.App.WebhookSecret = os.Getenv("GITHUB_APP_PRIVATE_KEY")
+	config.App.PrivateKey = os.Getenv("GITHUB_APP_PRIVATE_KEY")
+	config.App.WebhookSecret = os.Getenv("GITHUB_WEBHOOK_SECRET")
 
 	cc, err := githubapp.NewDefaultCachingClientCreator(config)
 	if err != nil {
 		log.Panic(err)
 	}
 
-	dispatcher := githubapp.NewDefaultEventDispatcher(config,
-		&ctrl.Installation{cc},
+	dispatcher := githubapp.NewDefaultEventDispatcher(
+		config, ctrl.New(cc, db, log),
 	)
-	app.WrapRouter(func(w http.ResponseWriter, r *http.Request, router http.HandlerFunc) {
+
+	handler := func(
+		w http.ResponseWriter,
+		r *http.Request,
+		router http.HandlerFunc,
+	) {
 		path := r.URL.Path
 		isHookRoute := strings.HasPrefix(path, "/github/hook")
 
@@ -44,5 +50,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 
 		// otherwise continue serving routes as usual
 		router.ServeHTTP(w, r)
-	})
+	}
+
+	app.WrapRouter(handler)
 }
