@@ -61,6 +61,8 @@ const strategy = new GitHubStrategy(
         repositories
       };
 
+      console.log(accessToken);
+
       fetch(`${API}/users`, {
         method: 'POST',
         headers: {

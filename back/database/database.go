@@ -11,13 +11,12 @@ import (
 	"github.com/qor/validations"
 )
 
-const enableLogs = false
-
 // Up database
 func Up() *gorm.DB {
 	var (
-		log = logger.Up()
-		dsn = os.Getenv("DATABASE_URL")
+		log        = logger.Up()
+		dsn        = os.Getenv("DATABASE_URL")
+		enableLogs = os.Getenv("DATABASE_LOGS_ENABLED") != ""
 
 		err error
 		db  *gorm.DB

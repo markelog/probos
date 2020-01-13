@@ -14,7 +14,7 @@ type User struct {
 	Email        string       `gorm:"not null;" json:"email,omitempty"`
 	Avatar       string       `gorm:"not null;" json:"avatar,omitempty"`
 	Provider     string       `gorm:"not null;" json:"provider,omitempty"`
-	Repositories []Repository `gorm:"many2many:user_repositories;association_autocreate:false"`
+	Repositories []Repository `gorm:"many2many:user_repositories;association_autocreate:false;"`
 }
 
 var userSchema = gojsonschema.NewStringLoader(`{

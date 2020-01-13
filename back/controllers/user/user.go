@@ -3,7 +3,6 @@ package users
 import (
 	"fmt"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/jinzhu/gorm"
 	"github.com/markelog/probos/back/database/models"
 )
@@ -40,21 +39,29 @@ func (user *User) Create(args *CreateArgs) error {
 		repositories = append(repositories, prj)
 	}
 
-	spew.Dump(repositories)
-
 	data := &models.User{
-		Name:         args.Name,
-		Username:     args.Username,
-		Email:        args.Email,
-		Avatar:       args.Avatar,
-		Provider:     args.Provider,
-		Repositories: repositories,
+		Name:     args.Name,
+		Username: args.Username,
+		Email:    args.Email,
+		Avatar:   args.Avatar,
+		Provider: args.Provider,
 	}
 
 	err := user.db.Where(models.User{
 		Username: args.Username,
-	}).Assign(&data).FirstOrCreate(&data).Error
+	}).FirstOrCreate(&data).Error
+	if err != nil {
+		return err
+	}
 
+	err = user.db.Find(&repositories).Error
+	if err != nil {
+		return err
+	}
+
+	err = user.db.Model(&data).
+		Association("Repositories").
+		Replace(&repositories).Error
 	if err != nil {
 		return err
 	}

@@ -7,6 +7,7 @@ module.exports = {
     passReqToCallback: false,
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK_URL
+    callbackURL: process.env.CALLBACK_URL,
+    scope: 'user:email,read:org,repo'
   }
 };

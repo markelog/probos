@@ -13,7 +13,7 @@ type Repository struct {
 	Repository string `gorm:"unique; not null;" json:"repository,omitempty"`
 	Token      *Token
 	Branches   []Branch `json:"branches,omitempty"`
-	Users      []User   `gorm:"many2many:repository_users;"`
+	Users      []User   `gorm:"many2many:user_repositories;"`
 }
 
 var repositorySchema = gojsonschema.NewStringLoader(`{

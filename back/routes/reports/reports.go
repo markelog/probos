@@ -12,7 +12,7 @@ func setPostError(log *logrus.Logger, params *controller.CreateArgs, ctx iris.Co
 
 	log.WithFields(logrus.Fields{
 		"Repository": params.Repository.Repository,
-		"branch":  params.Repository.Branch.Name,
+		"branch":     params.Repository.Branch.Name,
 	}).Error(errorString)
 
 	ctx.StatusCode(iris.StatusBadRequest)
@@ -26,7 +26,7 @@ func setPostError(log *logrus.Logger, params *controller.CreateArgs, ctx iris.Co
 func setLastError(log *logrus.Logger, params *controller.LastArgs, ctx iris.Context, err error) {
 	log.WithFields(logrus.Fields{
 		"Repository": params.Repository,
-		"branch":  params.Branch,
+		"branch":     params.Branch,
 	}).Error(err.Error())
 
 	ctx.StatusCode(iris.StatusBadRequest)
@@ -40,7 +40,7 @@ func setLastError(log *logrus.Logger, params *controller.LastArgs, ctx iris.Cont
 func setGetError(log *logrus.Logger, params *controller.GetArgs, ctx iris.Context, err error) {
 	log.WithFields(logrus.Fields{
 		"Repository": params.Repository,
-		"branch":  params.Branch,
+		"branch":     params.Branch,
 	}).Error(err.Error())
 
 	ctx.StatusCode(iris.StatusBadRequest)
@@ -149,7 +149,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 			ctx.JSON(iris.Map{
 				"status":  "failed",
 				"message": "Not found",
-				"payload": &controller.LastResult{},
+				"payload": &[]controller.GetResult{},
 			})
 			return
 		}
