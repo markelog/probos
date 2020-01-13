@@ -31,7 +31,7 @@ const Graphs = ({ repository, branch }) => {
 
   useEffect(() => {
     requestData();
-  }, [setData]);
+  }, []);
 
   return data.map(result => {
     const { name, sizes } = result;

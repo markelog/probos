@@ -5,18 +5,26 @@ import (
 	"github.com/markelog/probos/back/database/models"
 )
 
+// LastReport is a last report representation in the repo
+type LastReport struct {
+	Name string `json:"name"`
+	Size uint   `json:"size"`
+	Gzip uint   `json:"gzip"`
+}
+
 // RepositoriesResult is the result argument for the Repositories handler
 type RepositoriesResult struct {
-	Name       string `json:"name,omitempty"`
-	Repository string `json:"repository,omitempty"`
+	Name       string       `json:"name,omitempty"`
+	Repository string       `json:"repository,omitempty"`
+	LastReport []LastReport `json:"last-report,omitempty"`
 }
 
 // Repositories returns list of repos belongs to user
 func (user *User) Repositories(
 	username string, page int,
-) ([]RepositoriesResult, error) {
+) ([]*RepositoriesResult, error) {
 	var getUser models.User
-	var repos = []RepositoriesResult{}
+	var repos = []*RepositoriesResult{}
 	var correctedPage = page - 1
 	var limit = 10
 
@@ -24,24 +32,47 @@ func (user *User) Repositories(
 		Select("repository_id").
 		QueryExpr()
 
-	err := user.db.Where(models.User{
-		Username: username,
-	}).Preload("Repositories", func(db *gorm.DB) *gorm.DB {
+	preloadRepos := func(db *gorm.DB) *gorm.DB {
 		return user.db.Where("id IN (?)", reposExpr).
 			Limit(limit).
 			Offset(limit * correctedPage)
-	}).Take(&getUser).Error
+	}
+
+	preloadCommits := func(db *gorm.DB) *gorm.DB {
+		return user.db.Limit(1)
+	}
+
+	err := user.db.Where(models.User{
+		Username: username,
+	}).Preload("Repositories", preloadRepos).
+		Preload("Repositories.Branches").
+		Preload("Repositories.Branches.Commits", preloadCommits).
+		Preload("Repositories.Branches.Commits.Reports").
+		Take(&getUser).Error
 	if err != nil {
 		return nil, err
 	}
 
 	for _, repo := range getUser.Repositories {
-		result := RepositoriesResult{
+		result := &RepositoriesResult{
 			Name:       repo.Name,
 			Repository: repo.Repository,
+			LastReport: []LastReport{},
 		}
 
 		repos = append(repos, result)
+
+		if len(repo.Branches[0].Commits) == 0 {
+			continue
+		}
+
+		for _, report := range repo.Branches[0].Commits[0].Reports {
+			result.LastReport = append(result.LastReport, LastReport{
+				Name: report.Name,
+				Size: report.Size,
+				Gzip: report.Gzip,
+			})
+		}
 	}
 
 	return repos, nil
