@@ -1,6 +1,7 @@
 package users
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/markelog/probos/back/database/models"
 )
 
@@ -16,12 +17,20 @@ func (user *User) Repositories(
 ) ([]RepositoriesResult, error) {
 	var getUser models.User
 	var repos = []RepositoriesResult{}
+	var correctedPage = page - 1
+	var limit = 10
+
+	reposExpr := user.db.Table("branches").
+		Select("repository_id").
+		QueryExpr()
 
 	err := user.db.Where(models.User{
 		Username: username,
-	}).
-		Preload("Repositories", "id IN(SELECT repository_id FROM branches)").
-		Take(&getUser).Error
+	}).Preload("Repositories", func(db *gorm.DB) *gorm.DB {
+		return user.db.Where("id IN (?)", reposExpr).
+			Limit(limit).
+			Offset(limit * correctedPage)
+	}).Take(&getUser).Error
 	if err != nil {
 		return nil, err
 	}
