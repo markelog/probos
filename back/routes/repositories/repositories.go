@@ -46,7 +46,7 @@ func validate(params *postRepository) (*gojsonschema.Result, *iris.Map) {
 
 // Up Repository route
 func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
-	app.Post("/Repositories", func(ctx iris.Context) {
+	app.Post("/repositories", func(ctx iris.Context) {
 		var params postRepository
 		ctx.ReadJSON(&params)
 
@@ -102,7 +102,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 		})
 	})
 
-	app.Get("/Repositories", func(ctx iris.Context) {
+	app.Get("/repositories", func(ctx iris.Context) {
 		ctrl := controller.New(db)
 		Repositories, err := ctrl.List()
 
