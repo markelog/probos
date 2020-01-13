@@ -47,21 +47,31 @@ func (user *User) Create(args *CreateArgs) error {
 		Provider: args.Provider,
 	}
 
-	err := user.db.Where(models.User{
+	tx := user.db.Begin()
+
+	err := tx.Where(models.User{
 		Username: args.Username,
 	}).FirstOrCreate(&data).Error
 	if err != nil {
+		tx.Rollback()
 		return err
 	}
 
-	err = user.db.Find(&repositories).Error
+	err = tx.Find(&repositories).Error
 	if err != nil {
+		tx.Rollback()
 		return err
 	}
 
-	err = user.db.Model(&data).
+	err = tx.Model(&data).
 		Association("Repositories").
 		Replace(&repositories).Error
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	err = tx.Commit().Error
 	if err != nil {
 		return err
 	}
