@@ -23,7 +23,12 @@ app.prepare().then(() => {
   passport(server);
 
   server.get('/', jwtAuth, (req, res) => {
-    app.render(req, res, '/', {
+    if (req.user === null) {
+      app.render(req, res, '/landing');
+      return;
+    }
+
+    app.render(req, res, '/profile', {
       user: req.user
     });
   });
