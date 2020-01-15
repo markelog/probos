@@ -54,10 +54,11 @@ func (report *Report) Get(args *GetArgs) ([]*GetResult, error) {
 		return nil, err
 	}
 
-	return formatGetResult(commits), nil
+	return FormatGetResult(commits), nil
 }
 
-func formatGetResult(commits []models.Commit) []*GetResult {
+// FormatGetResult format the result in the nice way
+func FormatGetResult(commits []models.Commit) []*GetResult {
 	var result []*GetResult
 	var tmpKeys = []string{}
 	var tmp = map[string]*GetResult{}

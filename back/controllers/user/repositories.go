@@ -2,6 +2,7 @@ package users
 
 import (
 	"github.com/jinzhu/gorm"
+	reports "github.com/markelog/probos/back/controllers/report"
 	"github.com/markelog/probos/back/database/models"
 )
 
@@ -14,9 +15,9 @@ type LastReport struct {
 
 // RepositoriesResult is the result argument for the Repositories handler
 type RepositoriesResult struct {
-	Name       string       `json:"name,omitempty"`
-	Repository string       `json:"repository,omitempty"`
-	LastReport []LastReport `json:"last-report,omitempty"`
+	Name       string               `json:"name,omitempty"`
+	Repository string               `json:"repository,omitempty"`
+	LastReport []*reports.GetResult `json:"last-report,omitempty"`
 }
 
 // Repositories returns list of repos belongs to user
@@ -39,7 +40,9 @@ func (user *User) Repositories(
 	}
 
 	preloadCommits := func(db *gorm.DB) *gorm.DB {
-		return user.db.Limit(1)
+		return user.db.
+			Limit(1).
+			Order("date DESC")
 	}
 
 	err := user.db.Where(models.User{
@@ -57,7 +60,6 @@ func (user *User) Repositories(
 		result := &RepositoriesResult{
 			Name:       repo.Name,
 			Repository: repo.Repository,
-			LastReport: []LastReport{},
 		}
 
 		repos = append(repos, result)
@@ -66,13 +68,9 @@ func (user *User) Repositories(
 			continue
 		}
 
-		for _, report := range repo.Branches[0].Commits[0].Reports {
-			result.LastReport = append(result.LastReport, LastReport{
-				Name: report.Name,
-				Size: report.Size,
-				Gzip: report.Gzip,
-			})
-		}
+		result.LastReport = reports.FormatGetResult([]models.Commit{
+			repo.Branches[0].Commits[0],
+		})
 	}
 
 	return repos, nil
