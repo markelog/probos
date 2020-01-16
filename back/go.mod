@@ -9,12 +9,11 @@ require (
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
 	github.com/bradleyfalzon/ghinstallation v0.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/flosch/pongo2 v0.0.0-20190707114632-bbf5a6c351f4 // indirect
 	github.com/gavv/httpexpect v2.0.0+incompatible
 	github.com/gavv/monotime v0.0.0-20190418164738-30dba4353424 // indirect
 	github.com/go-errors/errors v1.0.1
-	github.com/golang/protobuf v1.3.2 // indirect
+	github.com/golangci/golangci-lint v1.22.2 // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/go-github/v28 v28.1.1 // indirect
@@ -32,6 +31,7 @@ require (
 	github.com/klauspost/compress v1.9.7 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/lib/pq v1.3.0 // indirect
+	github.com/mgechev/revive v1.0.1 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/moul/http2curl v1.0.0 // indirect
@@ -39,6 +39,7 @@ require (
 	github.com/qor/validations v0.0.0-20171228122639-f364bca61b46
 	github.com/rcrowley/go-metrics v0.0.0-20190826022208-cac0b30c2563 // indirect
 	github.com/rs/zerolog v1.17.2 // indirect
+	github.com/securego/gosec v0.0.0-20200116080623-3d5c97b418f4 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/shurcooL/githubv4 v0.0.0-20191127044304-8f68eb5628d0 // indirect
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
@@ -57,6 +58,5 @@ require (
 	gopkg.in/gavv/httpexpect.v1 v1.1.1
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/testfixtures.v2 v2.6.0
-	gopkg.in/yaml.v2 v2.2.7 // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )

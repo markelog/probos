@@ -31,7 +31,7 @@ func validate(params *postRepository) (*gojsonschema.Result, *iris.Map) {
 		payload *iris.Map
 	)
 
-	if check.Valid() == false {
+	if !check.Valid() {
 		for _, desc := range check.Errors() {
 			errors = append(errors, desc.String())
 		}
@@ -52,7 +52,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 
 		validation, errors := validate(&params)
 
-		if validation.Valid() == false {
+		if !validation.Valid() {
 			log.WithFields(logrus.Fields{
 				"Repository": params.Name,
 				"repository": params.Repository,
@@ -141,7 +141,5 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 			"message": "There you go",
 			"payload": Repositories,
 		})
-
-		return
 	})
 }

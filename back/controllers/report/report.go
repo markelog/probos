@@ -10,8 +10,7 @@ import (
 
 // Report type
 type Report struct {
-	db    *gorm.DB
-	model *gorm.DB
+	db *gorm.DB
 }
 
 // CreateArgs are create arguments for report type

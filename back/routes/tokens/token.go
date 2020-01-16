@@ -38,7 +38,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 		if err != nil {
 			log.WithFields(logrus.Fields{
 				"Repository": params.Repository,
-				"error":   err,
+				"error":      err,
 			}).Error("Couldn't create the token")
 
 			ctx.StatusCode(iris.StatusBadRequest)
@@ -52,7 +52,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 
 		log.WithFields(logrus.Fields{
 			"Repository": params.Repository,
-			"token":   result.Token,
+			"token":      result.Token,
 		}).Info("Token created")
 
 		ctx.StatusCode(iris.StatusOK)

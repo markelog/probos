@@ -7,12 +7,12 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var Repository models.Repository
+var repository models.Repository
 
 // Up root route
 func Up(app *iris.Application, db *gorm.DB, logger *logrus.Logger) {
 	app.Get("/", func(ctx iris.Context) {
-		db.First(&Repository)
-		ctx.HTML("<h1>" + Repository.Name + "</h1>")
+		db.First(&repository)
+		ctx.HTML("<h1>" + repository.Name + "</h1>")
 	})
 }

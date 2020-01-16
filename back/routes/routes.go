@@ -32,4 +32,3 @@ func Up() *iris.Application {
 
 	return app
 }
-

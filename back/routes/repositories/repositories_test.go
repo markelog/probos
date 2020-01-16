@@ -36,7 +36,7 @@ func TestMain(m *testing.M) {
 	log := logger.Up()
 	log.Out = ioutil.Discard
 
-	Repositories.Up(app, db, log)
+	repositories.Up(app, db, log)
 
 	app.Build()
 

@@ -10,10 +10,10 @@ import (
 
 // Token type
 type Token struct {
-	Token   string
+	Token      string
 	Repository uint
-	db      *gorm.DB
-	Model   *models.Token
+	db         *gorm.DB
+	Model      *models.Token
 }
 
 func generate() string {
@@ -39,7 +39,7 @@ func New(db *gorm.DB) *Token {
 func (token *Token) Create(Repository uint) (*models.Token, error) {
 	var (
 		RepositoryModel models.Repository
-		value        = token.db.Model(token.Repository).First(&RepositoryModel)
+		value           = token.db.Model(token.Repository).First(&RepositoryModel)
 	)
 
 	if value.Error != nil {
@@ -47,7 +47,7 @@ func (token *Token) Create(Repository uint) (*models.Token, error) {
 	}
 
 	token.Model = &models.Token{
-		Token:   token.Token,
+		Token:      token.Token,
 		Repository: RepositoryModel,
 	}
 
