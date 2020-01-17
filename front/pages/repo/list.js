@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const List = function(data) {
+const List = function (data) {
   const { user, repository } = data;
   const classes = useStyles();
 

@@ -7,15 +7,15 @@ import fetch from 'isomorphic-unfetch';
 import Chart from '../chart';
 import Table from '../table';
 
-const API = process.env.API;
+const { API } = process.env;
 
 function getData(branch, repository) {
   const url = `${API}/reports?repository=${repository}&branch=${branch}`;
   return fetch(url)
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .then(response => {
+    .then((response) => {
       return response.payload;
     });
 }
@@ -33,7 +33,7 @@ const Graphs = ({ repository, branch }) => {
     requestData();
   }, []);
 
-  return data.map(result => {
+  return data.map((result) => {
     const { name, sizes } = result;
 
     return (

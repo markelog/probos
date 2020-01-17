@@ -47,14 +47,22 @@ const diffFormat = (value, classes) => {
   if (value.increased) {
     return (
       <span className={classes.stiff}>
-        <MoreIcon className={classes.MoreIcon} /> {value.diff} %
+        <MoreIcon className={classes.MoreIcon} />
+{' '}
+{value.diff}
+{' '}
+%
       </span>
     );
   }
 
   return (
     <span className={classes.stiff}>
-      <LessIcon className={classes.LessIcon} /> {value.diff} %
+      <LessIcon className={classes.LessIcon} />
+{' '}
+{value.diff}
+{' '}
+%
     </span>
   );
 };
@@ -180,7 +188,7 @@ export default function Sizes({ data }) {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = event => {
+  const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
@@ -204,7 +212,7 @@ export default function Sizes({ data }) {
               .map((item, i) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={i}>
-                    {columns.map(column => {
+                    {columns.map((column) => {
                       const value = item[column.id];
 
                       return (

@@ -2,7 +2,7 @@ const fetch = require('isomorphic-unfetch');
 
 const passport = require('../api/auth/passport');
 
-const API = process.env.API;
+const { API } = process.env;
 
 module.exports = function jwt(req, res, next) {
   passport.authenticate('jwt', (err, user, info) => {
@@ -12,7 +12,7 @@ module.exports = function jwt(req, res, next) {
 
     fetch(`${API}/users/${user.user}`)
       .then(response => response.json())
-      .then(response => {
+      .then((response) => {
         const { payload } = response;
         if (Object.keys(payload).length === 0) {
           req.user = null;

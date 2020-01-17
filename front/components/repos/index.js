@@ -7,10 +7,10 @@ const { API } = process.env;
 function getData(username, page) {
   const url = `${API}/users/${username}/repos?page=${page}`;
   return fetch(url)
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .then(response => {
+    .then((response) => {
       return response.payload;
     });
 }

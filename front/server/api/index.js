@@ -1,5 +1,5 @@
 const auth = require('./auth');
 
-module.exports = server => {
+module.exports = (server) => {
   auth(server);
 };

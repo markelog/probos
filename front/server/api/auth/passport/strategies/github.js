@@ -4,7 +4,7 @@ const Octokit = require('@octokit/rest');
 
 const config = require('../config');
 
-const API = process.env.API;
+const { API } = process.env;
 
 async function getRepos(token) {
   const perPage = 100;
@@ -28,7 +28,7 @@ async function getRepos(token) {
     }
 
     const { data } = repos;
-    const names = data.map(repo => repo['full_name']);
+    const names = data.map(repo => repo.full_name);
 
     result = result.concat(names);
 
@@ -51,7 +51,7 @@ async function getRepos(token) {
 const strategy = new GitHubStrategy(
   config.github,
   async (accessToken, refreshToken, profile, cb) => {
-    getRepos(accessToken).then(repositories => {
+    getRepos(accessToken).then((repositories) => {
       const data = {
         name: profile.displayName,
         username: profile.username,
@@ -71,14 +71,14 @@ const strategy = new GitHubStrategy(
         body: JSON.stringify(data)
       })
         .then(response => response.json())
-        .then(response => {
+        .then((response) => {
           if (response.status === 'failed') {
             throw new Error(response.message);
           }
 
           cb(null, data.username);
         })
-        .catch(err => {
+        .catch((err) => {
           console.error('Cannot create a user', err);
           cb(err, false);
         });

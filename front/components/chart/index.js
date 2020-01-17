@@ -44,7 +44,9 @@ const Chart = ({ data }) => {
 
 const Tooltip = ({ point }) => {
   const classes = useStyles();
-  const { size, gzip, author, hash, message, date } = point.data;
+  const {
+    size, gzip, author, hash, message, date
+  } = point.data;
   const formattedDate = formatDistance(subDays(new Date(), 3), new Date(date));
 
   return (
@@ -54,12 +56,19 @@ const Tooltip = ({ point }) => {
           {message}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          <b>{author}</b> commited {formattedDate}
+          <b>{author}</b>
+{' '}
+commited
+{formattedDate}
         </Typography>
         <Typography variant="body1">
-          zip: <b>{size}</b>
+          zip:
+{' '}
+<b>{size}</b>
           <br />
-          gzip: <b>{gzip}</b>
+          gzip:
+{' '}
+<b>{gzip}</b>
         </Typography>
       </CardContent>
     </Card>

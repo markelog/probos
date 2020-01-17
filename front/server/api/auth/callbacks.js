@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken');
 
 const passport = require('./passport');
 
-module.exports = server => {
+module.exports = (server) => {
   server.get(
     '/api/auth/callback/github',
     passport.authenticate('github', {
       session: false,
       failureRedirect: '/'
     }),
-    function(req, res) {
+    (req, res) => {
       jwt.sign(
         {
           user: req.user

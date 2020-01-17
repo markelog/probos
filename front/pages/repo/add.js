@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const getRepos = async username => {
+const getRepos = async (username) => {
   const repos = await octokit.repos.listForUser({
     per_page: 100,
     direction: 'desc',
@@ -21,7 +21,7 @@ const getRepos = async username => {
   return repos.data;
 };
 
-const Add = function({ user, repos }) {
+const Add = function ({ user, repos }) {
   return <h1>{JSON.stringify(repos)}</h1>;
 };
 
@@ -31,7 +31,7 @@ Add.getInitialProps = async ({ query }) => {
 
   return {
     user,
-    repos: repos
+    repos
   };
 };
 
