@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node server",
     "prettier:fix": "prettier --ignore-path=.gitignore --check '**/*.js'",
     "prettier:check": "prettier --ignore-path=.gitignore --write '**/*.js'",
-    "eslint:check:": "eslint . --fix",
+    "eslint:check": "eslint . --fix",
     "eslint:fix:": "eslint .",
     "lint": "npm run prettier:check && npm run eslint:check",
     "fix": "npm run prettier:fix && npm run eslint:fix",
