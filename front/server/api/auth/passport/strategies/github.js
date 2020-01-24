@@ -51,7 +51,7 @@ async function getRepos(token) {
 const strategy = new GitHubStrategy(
   config.github,
   async (accessToken, refreshToken, profile, cb) => {
-    getRepos(accessToken).then((repositories) => {
+    getRepos(accessToken).then(repositories => {
       const data = {
         name: profile.displayName,
         username: profile.username,
@@ -61,8 +61,6 @@ const strategy = new GitHubStrategy(
         repositories
       };
 
-      console.log(accessToken);
-
       fetch(`${API}/users`, {
         method: 'POST',
         headers: {
@@ -71,14 +69,14 @@ const strategy = new GitHubStrategy(
         body: JSON.stringify(data)
       })
         .then(response => response.json())
-        .then((response) => {
+        .then(response => {
           if (response.status === 'failed') {
             throw new Error(response.message);
           }
 
           cb(null, data.username);
         })
-        .catch((err) => {
+        .catch(err => {
           console.error('Cannot create a user', err);
           cb(err, false);
         });

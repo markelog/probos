@@ -7,17 +7,19 @@ const { API } = process.env;
 function getData(username, page) {
   const url = `${API}/users/${username}/repos?page=${page}`;
   return fetch(url)
-    .then((response) => {
-      return response.json();
-    })
-    .then((response) => {
-      return response.payload;
-    });
+    .then(response => response.json())
+    .then(response => response.payload);
 }
 
-export default function Repos({ username, page }) {
+export default function Repos({ user, page }) {
   const classes = useStyles();
   const [data, setData] = useState([]);
+
+  if (user === undefined) {
+    return null;
+  }
+
+  const { username } = user;
 
   const requestData = async () => {
     const data = await getData(username, page);

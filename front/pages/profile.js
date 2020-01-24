@@ -33,7 +33,7 @@ function Index({ user }) {
     <main>
       <Top user={user} />
       <Layout>
-        <Repos username={user.username} page={1} />
+        <Repos user={user} page={1} />
       </Layout>
     </main>
   );
