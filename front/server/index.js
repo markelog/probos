@@ -40,13 +40,7 @@ app.prepare().then(() => {
   });
 
   server.get(/repos\/(.*)/, jwtAuth, (req, res) => {
-    return app.render(req, res, '/repo/list', {
-      user: req.user
-    });
-  });
-
-  server.get('/repo/add', jwtAuth, (req, res) => {
-    return app.render(req, res, '/repo/add', {
+    return app.render(req, res, '/repo', {
       user: req.user
     });
   });

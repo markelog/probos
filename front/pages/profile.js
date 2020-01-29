@@ -17,10 +17,9 @@ const useStyles = makeStyles(theme => ({
 function Index({ user }) {
   const classes = useStyles();
   const router = useRouter();
+  const { page = 1 } = router.query;
 
   useEffect(() => {
-    const { page } = router.query;
-
     if (page !== '') {
       return;
     }
@@ -33,7 +32,7 @@ function Index({ user }) {
     <main>
       <Top user={user} />
       <Layout>
-        <Repos user={user} page={1} />
+        <Repos user={user} page={page} />
       </Layout>
     </main>
   );
