@@ -23,8 +23,8 @@ app.prepare().then(() => {
   passport(server);
 
   server.get('/', jwtAuth, (req, res) => {
-    if (req.user === null) {
-      app.render(req, res, '/landing');
+    if (req.user === undefined) {
+      app.render(req, res, '/landing/index');
       return;
     }
 

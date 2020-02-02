@@ -6,6 +6,9 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
+  main: {
+    marginTop: 50
+  },
   link: {
     margin: theme.spacing(1)
   }
@@ -18,7 +21,7 @@ function Layout({ user, loading = false, children }) {
   return (
     <>
       <Container maxWidth="md">
-        <main>{children}</main>
+        <main className={classes.main}>{children}</main>
       </Container>
 
       <Head>

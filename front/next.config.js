@@ -1,8 +1,9 @@
 const dotenv = require('dotenv');
+const withImages = require('next-images');
 
 dotenv.config();
 
-module.exports = {
+module.exports = withImages({
   useFileSystemPublicRoutes: false,
   env: {
     API: process.env.API,
@@ -16,4 +17,4 @@ module.exports = {
     SESSION_COOKIE_SECRET: process.env.SESSION_COOKIE_SECRET,
     SESSION_COOKIE_LIFETIME: 7200 // 2 hours
   }
-};
+});

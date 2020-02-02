@@ -27,7 +27,7 @@ export default function Top({ user }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="inherit">
         <Toolbar>
           <IconButton
             edge="start"
