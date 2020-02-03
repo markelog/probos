@@ -28,7 +28,13 @@ async function getRepos(token) {
     }
 
     const { data } = repos;
-    const names = data.map(repo => repo.full_name);
+
+    const names = data.map(repo => {
+      return {
+        name: repo.full_name,
+        branch: repo.default_branch
+      };
+    });
 
     result = result.concat(names);
 

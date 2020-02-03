@@ -20,13 +20,14 @@ func New(db *gorm.DB) *Repository {
 }
 
 // Create Repository
-func (repository *Repository) Create(name, repo string) (
+func (repository *Repository) Create(name, repo, branch string) (
 	*models.Repository, error,
 ) {
 	model := &models.Repository{
-		Name:       name,
-		Repository: repo,
-		Token:      token.New(repository.db).Model,
+		Name:          name,
+		DefaultBranch: branch,
+		Repository:    repo,
+		Token:         token.New(repository.db).Model,
 	}
 
 	result := repository.db.Where(models.Repository{
