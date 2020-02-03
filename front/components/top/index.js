@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
 
 import SignInOut from '../sign-in-out';
 
@@ -27,17 +28,13 @@ export default function Top({ user }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="inherit">
+      <AppBar position="static" color="inherit" elevation={1}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <SignInOut user={user} />
+          <Grid container justify="flex-end">
+            <Grid item className={classes.chart}>
+              <SignInOut user={user} />
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>

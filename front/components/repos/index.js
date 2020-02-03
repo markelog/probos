@@ -16,6 +16,8 @@ import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 import prettyBytes from 'pretty-bytes';
 
+import LittleChart from '../little-chart';
+
 const { API } = process.env;
 
 const useStyles = makeStyles(({ palette }) => {
@@ -23,6 +25,17 @@ const useStyles = makeStyles(({ palette }) => {
     card: {
       minWidth: 275,
       width: '50%'
+    },
+    gridContainer: {
+      position: 'relative'
+    },
+    chart: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      opacity: 0.1
     },
     title: {
       fontSize: 14
@@ -103,7 +116,15 @@ function viewRepo(classes, data, index) {
             <a className={classes.link}>{name}</a>
           </Link>
         </Typography>
-        <Grid container justify="flex-start" key={name}>
+        <Grid
+          container
+          justify="flex-start"
+          key={name}
+          className={classes.gridContainer}
+        >
+          <Grid item xs={12} className={classes.chart}>
+            <LittleChart />
+          </Grid>
           {data['last-report'].map(viewFiles.bind(null, classes))}
         </Grid>
       </CardContent>

@@ -9,15 +9,34 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 
-const useStyles = makeStyles(theme => ({}));
+const useStyles = makeStyles(theme => ({
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    margin: theme.spacing(1),
+    float: 'left'
+  },
+  link: {
+    margin: '5px 0 0 -5px',
+    display: 'block',
+    float: 'left'
+  },
+  button: {
+    textTransform: 'inherit',
+    fontSize: '1rem'
+  }
+}));
 
 function User({ user }) {
+  const classes = useStyles();
   const { username, avatar } = user;
   return (
     <>
-      <Avatar alt={username} src={avatar} />
-      <Link href="/api/auth/logout" color="inherit">
-        sign out
+      <Avatar alt={username} src={avatar} className={classes.avatar} />
+      <Link href="/api/auth/logout" color="inherit" className={classes.link}>
+        <Button className={classes.button} color="inherit">
+          Sign out
+        </Button>
       </Link>
     </>
   );
@@ -33,7 +52,5 @@ function SignIn() {
 
 export default function SignInOut({ user }) {
   const classes = useStyles();
-  return (
-    <Button color="inherit">{user ? <User user={user} /> : <SignIn />}</Button>
-  );
+  return user ? <User user={user} /> : <SignIn />;
 }
