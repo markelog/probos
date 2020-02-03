@@ -18,6 +18,14 @@ export default {
   indexBy: 'date',
   enableGridX: false,
   enableGridY: false,
+  theme: {
+    tooltip: {
+      container: {
+        background: 'transparent',
+        boxShadow: 'none'
+      }
+    }
+  },
   legends: [
     {
       dataFrom: 'keys',

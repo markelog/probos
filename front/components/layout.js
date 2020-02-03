@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   main: {
-    marginTop: 50
+    marginTop: 20
   },
   link: {
     margin: theme.spacing(1)

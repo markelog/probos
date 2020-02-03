@@ -24,6 +24,9 @@ const useStyles = makeStyles({
   pos: {
     fontSize: 14,
     marginBottom: 12
+  },
+  container: {
+    height: 300
   }
 });
 
@@ -31,7 +34,7 @@ const Chart = ({ data }) => {
   const classes = useStyles();
 
   return (
-    <div style={{ height: '400px' }}>
+    <div className={classes.container}>
       <ResponsiveBar
         {...config}
         data={data}
