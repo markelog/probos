@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -43,10 +44,16 @@ function User({ user }) {
 }
 
 function SignIn() {
+  const classes = useStyles();
   return (
-    <Link href="/api/auth/github" color="inherit">
-      sign in
-    </Link>
+    <>
+      <GitHubIcon className={classes.avatar} />
+      <Link href="/api/auth/github" color="inherit" className={classes.link}>
+        <Button className={classes.button} color="inherit">
+          Sign in
+        </Button>
+      </Link>
+    </>
   );
 }
 
