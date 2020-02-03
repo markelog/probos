@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 
 import Layout from '../components/layout';
-
 import Graphs from '../components/graphs';
+import Top from '../components/Top';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -13,15 +13,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const List = function(data) {
+const Repo = function(data) {
   const { user, repository } = data;
   const classes = useStyles();
 
+  console.log(data);
+
   return (
     <>
-      <Link href="/api/logout" color="inherit" className={classes.link}>
-        logout
-      </Link>
+      <Top user={user} />
       <Layout user={user}>
         <Graphs repository={repository} branch="master" />
       </Layout>
@@ -29,10 +29,11 @@ const List = function(data) {
   );
 };
 
-List.getInitialProps = ({ asPath }) => {
+Repo.getInitialProps = ({ query, asPath }) => {
   return {
+    user: query.user,
     repository: asPath.replace('/repos/', '')
   };
 };
 
-export default List;
+export default Repo;

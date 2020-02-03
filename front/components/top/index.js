@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
-import SignInOut from '../sign-in-out';
+import Auth from '../auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,7 +32,7 @@ export default function Top({ user }) {
         <Toolbar>
           <Grid container justify="flex-end">
             <Grid item className={classes.chart}>
-              <SignInOut user={user} />
+              <Auth user={user} />
             </Grid>
           </Grid>
         </Toolbar>
