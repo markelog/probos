@@ -5,7 +5,7 @@ import Link from '@material-ui/core/Link';
 
 import Layout from '../components/layout';
 import Graphs from '../components/graphs';
-import Top from '../components/top';
+import Top from '../components/Top';
 
 const useStyles = makeStyles(theme => ({
   link: {

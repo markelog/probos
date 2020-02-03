@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/google/go-github/github"
 	"github.com/jinzhu/gorm"
 	"github.com/markelog/probos/back/controllers/repository"
@@ -50,9 +49,7 @@ func (installation *Installation) HandleCreateEvent(
 		address := fmt.Sprintf("github.com/%s", *repo.FullName)
 		name := *repo.Name
 
-		spew.Dump(repo)
-
-		_, err := prj.Create(name, address, "master")
+		_, err := prj.Create(name, address)
 		if err != nil {
 			tx.Rollback()
 			return err

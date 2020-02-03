@@ -11,7 +11,7 @@ type Repository struct {
 	gorm.Model
 	Name          string `gorm:"not null;" json:"name,omitempty"`
 	Repository    string `gorm:"unique; not null;" json:"repository,omitempty"`
-	DefaultBranch string `gorm:"not null;" json:"branch,omitempty"`
+	DefaultBranch string `json:"branch,omitempty"`
 	Token         *Token
 	Branches      []Branch `json:"branches,omitempty"`
 	Users         []User   `gorm:"many2many:user_repositories;"`

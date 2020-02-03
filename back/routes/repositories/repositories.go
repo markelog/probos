@@ -9,7 +9,6 @@ import (
 
 type postRepository struct {
 	Name       string `json:"name"`
-	Branch     string `json:"branch"`
 	Repository string `json:"repository"`
 }
 
@@ -19,15 +18,11 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 		var params postRepository
 		ctx.ReadJSON(&params)
 		ctrl := controller.New(db)
-		result, err := ctrl.Create(
-			params.Name,
-			params.Repository,
-			params.Branch,
-		)
+		result, err := ctrl.Create(params.Name, params.Repository)
 
 		if err != nil {
 			log.WithFields(logrus.Fields{
-				"Repository": params.Name,
+				"name":       params.Name,
 				"repository": params.Repository,
 			}).Error("Can't create the Repository")
 
