@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
     float: 'left'
   },
   button: {
+    fontWeight: 'bold',
     textTransform: 'inherit',
     fontSize: '1rem'
   }

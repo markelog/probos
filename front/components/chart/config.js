@@ -1,3 +1,7 @@
+import theme from '../theme';
+import lightGreen from '@material-ui/core/colors/lightGreen';
+import grey from '@material-ui/core/colors/grey';
+
 export default {
   keys: ['size', 'gzip'],
   margin: {
@@ -7,7 +11,7 @@ export default {
     left: 60
   },
   padding: 0.3,
-  colors: ['#f45b87', '#6eadd4'],
+  colors: [grey[300], '#f3665c'],
   axisLeft: null,
   axisTop: null,
   axisRight: null,
@@ -25,7 +29,8 @@ export default {
       itemsSpacing: 2,
       itemWidth: 100,
       itemHeight: 20,
-      itemDirection: 'left-to-right'
+      itemDirection: 'left-to-right',
+      itemTextColor: '#fff'
     }
   ]
 };

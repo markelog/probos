@@ -17,8 +17,6 @@ const Repo = function(data) {
   const { user, repository } = data;
   const classes = useStyles();
 
-  console.log(data);
-
   return (
     <>
       <Top user={user} />

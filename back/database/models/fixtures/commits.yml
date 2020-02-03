@@ -3,7 +3,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: d52e12a518e7f671c7ad03166283796484613286
-  date: 2018-12-12T10:53:02.190Z
+  date: 2018-12-13T10:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "1 [feat] Remove debug artefact"
   branch_id: 1
@@ -13,7 +13,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0cc0f46e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T11:53:02.190Z
+  date: 2018-12-14T11:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "2 add fixtures and foreign keys"
   branch_id: 1
@@ -23,7 +23,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: d42e12a518e7f671c7ad03166283796484613286
-  date: 2018-12-12T12:53:02.190Z
+  date: 2018-12-15T12:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "3 [feat] Remove debug artefact"
   branch_id: 1
@@ -33,7 +33,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0bc0f46e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T13:53:02.190Z
+  date: 2018-12-16T13:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "4 add fixtures and foreign keys"
   branch_id: 1
@@ -43,7 +43,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: d53e12a518e7f671c7ad03166283796484613286
-  date: 2018-12-12T14:53:02.190Z
+  date: 2018-12-17T14:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "5 [feat] Remove debug artefact"
   branch_id: 1
@@ -53,7 +53,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0cq0f46e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T15:53:02.190Z
+  date: 2018-12-18T15:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "6 add fixtures and foreign keys"
   branch_id: 1
@@ -63,7 +63,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: d62e12a518e7f671c7ad03166283796484613286
-  date: 2018-12-12T16:53:02.190Z
+  date: 2018-12-19T16:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "7 [feat] Remove debug artefact"
   branch_id: 1
@@ -73,7 +73,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0tc0f46e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T17:53:02.190Z
+  date: 2018-12-20T17:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "8 add fixtures and foreign keys"
   branch_id: 1
@@ -83,7 +83,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: d72e12a518e7f671c7ad03166283796484613286
-  date: 2018-12-12T18:53:02.190Z
+  date: 2018-12-21T18:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "9 [feat] Remove debug artefact"
   branch_id: 1
@@ -93,7 +93,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0ch0f46e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T19:53:02.190Z
+  date: 2018-12-22T19:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "10 add fixtures and foreign keys"
   branch_id: 1
@@ -103,7 +103,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: d82e12a518e7f671c7ad03166283796484613286
-  date: 2018-12-12T20:53:02.190Z
+  date: 2018-12-23T20:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "11 [feat] Remove debug artefact"
   branch_id: 1
@@ -113,7 +113,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0cc1f46e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T21:53:02.190Z
+  date: 2018-12-24T21:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "12 add fixtures and foreign keys"
   branch_id: 1
@@ -123,7 +123,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: d52d12a518e7f671c7ad03166283796484613286
-  date: 2018-12-12T22:53:02.190Z
+  date: 2018-12-25T22:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "13 [feat] Remove debug artefact"
   branch_id: 1
@@ -133,7 +133,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0cc0f47e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T23:53:02.190Z
+  date: 2018-12-26T23:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "14 add fixtures and foreign keys"
   branch_id: 1
@@ -144,7 +144,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0cc0f47e1bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T23:53:02.190Z
+  date: 2018-12-27T23:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "14 add fixtures and foreign keys"
   branch_id: 2
@@ -155,7 +155,7 @@
   updated_at: 2018-12-12T09:53:02.190Z
   deleted_at: null
   hash: 0cc0f57e5bda4801c54b33bf54217af2e2a3404a
-  date: 2018-12-12T23:53:02.190Z
+  date: 2018-12-28T23:53:02.190Z
   author: Oleg Gaidarenko <markelog@gmail.com>
   message: "14 add fixtures and foreign keys"
   branch_id: 3

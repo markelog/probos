@@ -105,7 +105,7 @@ function viewFiles(classes, data) {
 }
 
 function viewRepo(classes, data, index) {
-  const { name, repository } = data;
+  const { name, repository, total } = data;
   const href = `/repos/${repository}`;
 
   return (
@@ -123,7 +123,7 @@ function viewRepo(classes, data, index) {
           className={classes.gridContainer}
         >
           <Grid item xs={12} className={classes.chart}>
-            <LittleChart />
+            <LittleChart total={total} />
           </Grid>
           {data['last-report'].map(viewFiles.bind(null, classes))}
         </Grid>

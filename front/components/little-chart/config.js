@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
-import theme from '../theme';
+import lightGreen from '@material-ui/core/colors/lightGreen';
+import grey from '@material-ui/core/colors/grey';
 
 export default {
-  keys: ['hot dog', 'burger'],
-  indexBy: 'country',
+  keys: ['size', 'gzip'],
+  indexBy: 'date',
   theme: {
     tooltip: {
       container: {
@@ -11,7 +12,7 @@ export default {
       }
     }
   },
-  colors: ['rgb(235, 237, 239)', theme.palette.secondary.dark],
+  colors: [grey[300], '#f3665c'],
   // colors: [theme.palette.primary.main, theme.palette.info.dark],
   // colors: { scheme: 'nivo' },
   defs: [
