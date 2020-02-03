@@ -139,7 +139,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 			return
 		}
 
-		if len(reports) == 0 {
+		if len(reports.Sizes) == 0 {
 			log.WithFields(logrus.Fields{
 				"repository": URLparams["repository"],
 				"branch":     URLparams["branch"],

@@ -26,17 +26,36 @@ function getData(branch, repository) {
 const Graphs = ({ repository, branch }) => {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [name, setName] = useState('');
 
   const requestData = async () => {
     const data = await getData(branch, repository);
 
-    setData(data);
+    setData(data.sizes);
+    setName(data.name);
   };
 
   useEffect(() => {
     requestData();
   }, []);
 
+  return (
+    <>
+      <Typography
+        className={classes.title}
+        variant="h2"
+        component="h2"
+        gutterBottom="true"
+      >
+        {name}
+      </Typography>
+      <ViewFiles data={data} />
+    </>
+  );
+};
+
+function ViewFiles({ data }) {
+  const classes = useStyles();
   return data.map(result => {
     const { name, sizes } = result;
 
@@ -55,6 +74,6 @@ const Graphs = ({ repository, branch }) => {
       </div>
     );
   });
-};
+}
 
 export default Graphs;

@@ -21,16 +21,23 @@ type GetSize struct {
 	Gzip    uint   `json:"gzip"`
 }
 
-// GetResult is a return value for Get handler
-type GetResult struct {
+// SizesResult is the result for the sizes
+type SizesResult struct {
 	Name  string    `json:"name"`
 	Sizes []GetSize `json:"sizes"`
 }
 
+// GetResult is a return value for Get handler
+type GetResult struct {
+	Name  string         `json:"name"`
+	Sizes []*SizesResult `json:"sizes"`
+}
+
 // Get reports
-func (report *Report) Get(args *GetArgs) ([]*GetResult, error) {
+func (report *Report) Get(args *GetArgs) (*GetResult, error) {
 	var (
-		commits []models.Commit
+		commits    []models.Commit
+		repository models.Repository
 
 		Repository = report.db.Table("repositories").Select("id").Where(
 			"repository = ?",
@@ -54,20 +61,32 @@ func (report *Report) Get(args *GetArgs) ([]*GetResult, error) {
 		return nil, err
 	}
 
-	return FormatGetResult(commits), nil
+	err = report.db.Where(models.Repository{
+		Repository: args.Repository,
+	}).Take(&repository).Error
+	if err != nil {
+		return nil, err
+	}
+
+	result := &GetResult{
+		Name:  repository.Name,
+		Sizes: FormatGetResult(commits),
+	}
+
+	return result, nil
 }
 
 // FormatGetResult format the result in the nice way
-func FormatGetResult(commits []models.Commit) []*GetResult {
-	var result []*GetResult
+func FormatGetResult(commits []models.Commit) []*SizesResult {
+	var result []*SizesResult
 	var tmpKeys = []string{}
-	var tmp = map[string]*GetResult{}
+	var tmp = map[string]*SizesResult{}
 
 	for _, commit := range commits {
 		for _, report := range commit.Reports {
 			if _, ok := tmp[report.Name]; !ok {
 				tmpKeys = append(tmpKeys, report.Name)
-				tmp[report.Name] = &GetResult{
+				tmp[report.Name] = &SizesResult{
 					Name: report.Name,
 				}
 			}

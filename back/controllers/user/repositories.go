@@ -24,10 +24,10 @@ type TotalResult struct {
 
 // RepositoriesResult is the result argument for the Repositories handler
 type RepositoriesResult struct {
-	Name       string               `json:"name,omitempty"`
-	Repository string               `json:"repository,omitempty"`
-	LastReport []*reports.GetResult `json:"last-report,omitempty"`
-	Total      []*TotalResult       `json:"total,omitempty"`
+	Name       string                 `json:"name,omitempty"`
+	Repository string                 `json:"repository,omitempty"`
+	LastReport []*reports.SizesResult `json:"last-report,omitempty"`
+	Total      []*TotalResult         `json:"total,omitempty"`
 }
 
 // Repositories returns list of repos belongs to user
