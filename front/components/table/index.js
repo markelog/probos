@@ -18,7 +18,44 @@ import prettyBytes from 'pretty-bytes';
 import { formatDistance, subDays } from 'date-fns';
 
 const useStyles = makeStyles({
-  root: {},
+  header: {
+    whiteSpace: 'nowrap',
+    textAlign: 'center'
+  },
+  'cell-size': {
+    maxWidth: '12px',
+    width: '12px'
+  },
+  'cell-gzip': {
+    maxWidth: '12px',
+    width: '12px'
+  },
+
+  'cell-sizeDiff': {
+    maxWidth: '12px',
+    width: '12px'
+  },
+
+  'cell-gzipDiff': {
+    maxWidth: '12px',
+    width: '12px'
+  },
+
+  'cell-author': {
+    maxWidth: '70px',
+    width: '70px'
+  },
+
+  'cell-message': {
+    maxWidth: '95px',
+    width: '40px'
+  },
+
+  'cell-date': {
+    maxWidth: '40px',
+    width: '40px'
+  },
+
   stiff: {
     whiteSpace: 'nowrap'
   },
@@ -47,22 +84,14 @@ const diffFormat = (value, classes) => {
   if (value.increased) {
     return (
       <span className={classes.stiff}>
-        <MoreIcon className={classes.MoreIcon} />
-{' '}
-{value.diff}
-{' '}
-%
+        <MoreIcon className={classes.MoreIcon} /> {value.diff}%
       </span>
     );
   }
 
   return (
     <span className={classes.stiff}>
-      <LessIcon className={classes.LessIcon} />
-{' '}
-{value.diff}
-{' '}
-%
+      <LessIcon className={classes.LessIcon} /> {value.diff}%
     </span>
   );
 };
@@ -86,25 +115,29 @@ const columns = [
   },
   {
     id: 'sizeDiff',
-    label: 'size diff',
+    label: 'size &Delta;',
     align: 'right',
+    width: '14%',
     format: diffFormat
   },
   {
     id: 'gzipDiff',
-    label: 'gzip diff',
+    label: 'gzip &Delta;',
     align: 'right',
+    width: '14%',
     format: diffFormat
   },
   {
     id: 'author',
     label: 'author',
-    align: 'right'
+    align: 'right',
+    width: '14%'
   },
   {
     id: 'message',
     label: 'message',
     align: 'right',
+    width: '14%',
     format: (value, classes) => {
       return <span className={classes.stiff}>{value}</span>;
     }
@@ -188,7 +221,7 @@ export default function Sizes({ data }) {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
@@ -199,11 +232,20 @@ export default function Sizes({ data }) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map(column => (
-                <TableCell key={column.id} align={column.align}>
-                  {column.label}
-                </TableCell>
-              ))}
+              {columns.map(column => {
+                return (
+                  <TableCell
+                    className={
+                      classes[`cell-${column.id}`] + ' ' + classes.header
+                    }
+                    key={column.id}
+                    align={column.align}
+                    dangerouslySetInnerHTML={{ __html: column.label }}
+                  >
+                    {}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -212,11 +254,15 @@ export default function Sizes({ data }) {
               .map((item, i) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={i}>
-                    {columns.map((column) => {
+                    {columns.map(column => {
                       const value = item[column.id];
 
                       return (
-                        <TableCell key={column.date} align={column.align}>
+                        <TableCell
+                          className={classes[`cell-${column.id}`]}
+                          key={column.date}
+                          align={column.align}
+                        >
                           {column.format
                             ? column.format(value, classes)
                             : value}

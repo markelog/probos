@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
     margin: theme.spacing(1),
-    float: 'left'
+    float: 'left',
+    borderRadius: '30%'
   },
   link: {
     margin: '5px 0 0 -5px',
