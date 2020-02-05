@@ -9,8 +9,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import moreIcon from '@material-ui/icons/AddCircleOutline';
-import lessIcon from '@material-ui/icons/RemoveCircleOutline';
+import MoreIcon from '@material-ui/icons/AddCircleOutline';
+import LessIcon from '@material-ui/icons/RemoveCircleOutline';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 
@@ -86,14 +86,14 @@ const diffFormat = (value, classes) => {
   if (value.increased) {
     return (
       <span className={classes.stiff}>
-        <moreIcon className={classes.moreIcon} /> {value.diff}%
+        <MoreIcon className={classes.moreIcon} /> {value.diff}%
       </span>
     );
   }
 
   return (
     <span className={classes.stiff}>
-      <lessIcon className={classes.lessIcon} /> {value.diff}%
+      <LessIcon className={classes.lessIcon} /> {value.diff}%
     </span>
   );
 };
