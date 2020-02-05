@@ -12,18 +12,18 @@ import (
 type Commit struct {
 	gorm.Model
 	Hash     string    `gorm:"unique;not null;" json:"hash,omitempty"`
-	Author   string    `json:"author,omitempty"`
 	Message  string    `json:"message,omitempty"`
 	Date     time.Time `json:"date,omitempty"`
 	BranchID uint      `json:"branch,omitempty"`
-	Reports  []Report  `json:"reports,omitempty"`
+	Author   Author    `json:"author,omitempty"`
+	AuthorID uint
+	Reports  []Report `json:"reports,omitempty"`
 }
 
 var commitSchema = gojsonschema.NewStringLoader(`{
 	"type": "object",
 	"properties": {
 		"hash": {"type": "string", "minLength": 1},
-		"author": {"type": "string", "minLength": 1},
 		"message": {"type": "string", "minLength": 1},
 		"date": {"type": "string", "minLength": 1},
 		"branch": {"type": "number", "minimum": 1},
@@ -32,6 +32,9 @@ var commitSchema = gojsonschema.NewStringLoader(`{
 			"items": {
 				"type": "object"
 			}
+		},
+		"author": {
+			"type": "object"
 		}
 	},
 	"required": ["hash", "author", "date", "message", "branch"]

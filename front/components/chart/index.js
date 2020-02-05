@@ -11,6 +11,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
+import User from '../user';
 
 import config from './config.js';
 
@@ -57,8 +60,12 @@ const Tooltip = ({ point }) => {
           {message}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          <b>{author}</b> commited
-          {formattedDate}
+          <User
+            username={author.username}
+            avatar={author.avatar}
+            url={author.url}
+          />{' '}
+          commited {formattedDate}
         </Typography>
         <Typography variant="body1">
           zip: <b>{size}</b>

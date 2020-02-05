@@ -17,6 +17,7 @@ require (
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/go-github/v28 v28.1.1 // indirect
+	github.com/google/go-github/v29 v29.0.2
 	github.com/gorilla/schema v1.1.0 // indirect
 	github.com/gregjones/httpcache v0.0.0-20190611155906-901d90724c79 // indirect
 	github.com/hashicorp/golang-lru v0.5.3 // indirect
@@ -52,7 +53,7 @@ require (
 	github.com/yudai/gojsondiff v1.0.0 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	golang.org/x/crypto v0.0.0-20200109152110-61a87790db17 // indirect
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
+	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/sys v0.0.0-20200107162124-548cf772de50 // indirect
 	google.golang.org/appengine v1.6.5 // indirect
 	gopkg.in/gavv/httpexpect.v1 v1.1.1

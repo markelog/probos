@@ -26,7 +26,7 @@ var branchSchema = gojsonschema.NewStringLoader(`{
 			}
 		}
 	},
-	"required": ["name", "Repository"]
+	"required": ["name", "repository"]
 }`)
 
 // Validate model

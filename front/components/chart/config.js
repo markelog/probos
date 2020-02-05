@@ -1,6 +1,7 @@
-import theme from '../theme';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 import grey from '@material-ui/core/colors/grey';
+
+import theme from '../theme';
 
 export default {
   keys: ['size', 'gzip'],

@@ -9,15 +9,20 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import MoreIcon from '@material-ui/icons/AddCircleOutline';
-import LessIcon from '@material-ui/icons/RemoveCircleOutline';
+import moreIcon from '@material-ui/icons/AddCircleOutline';
+import lessIcon from '@material-ui/icons/RemoveCircleOutline';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 
 import prettyBytes from 'pretty-bytes';
 import { formatDistance, subDays } from 'date-fns';
 
+import User from '../user';
+
 const useStyles = makeStyles({
+  container: {
+    height: 300
+  },
   header: {
     whiteSpace: 'nowrap',
     textAlign: 'center'
@@ -59,20 +64,17 @@ const useStyles = makeStyles({
   stiff: {
     whiteSpace: 'nowrap'
   },
-  MoreIcon: {
+  moreIcon: {
     position: 'relative',
     top: 5,
     color: red[500],
     fontSize: 20
   },
-  LessIcon: {
+  lessIcon: {
     position: 'relative',
     top: 5,
     color: green[500],
     fontSize: 20
-  },
-  container: {
-    height: 300
   }
 });
 
@@ -84,14 +86,14 @@ const diffFormat = (value, classes) => {
   if (value.increased) {
     return (
       <span className={classes.stiff}>
-        <MoreIcon className={classes.MoreIcon} /> {value.diff}%
+        <moreIcon className={classes.moreIcon} /> {value.diff}%
       </span>
     );
   }
 
   return (
     <span className={classes.stiff}>
-      <LessIcon className={classes.LessIcon} /> {value.diff}%
+      <lessIcon className={classes.lessIcon} /> {value.diff}%
     </span>
   );
 };
@@ -117,27 +119,26 @@ const columns = [
     id: 'sizeDiff',
     label: 'size &Delta;',
     align: 'right',
-    width: '14%',
     format: diffFormat
   },
   {
     id: 'gzipDiff',
     label: 'gzip &Delta;',
     align: 'right',
-    width: '14%',
     format: diffFormat
   },
   {
     id: 'author',
     label: 'author',
     align: 'right',
-    width: '14%'
+    format: (...args) => {
+      return <User {...args[0]} />;
+    }
   },
   {
     id: 'message',
     label: 'message',
     align: 'right',
-    width: '14%',
     format: (value, classes) => {
       return <span className={classes.stiff}>{value}</span>;
     }

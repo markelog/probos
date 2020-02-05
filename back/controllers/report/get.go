@@ -11,14 +11,21 @@ type GetArgs struct {
 	Branch     string `json:"branch"`
 }
 
+// GetAuthor is the struct for author data
+type GetAuthor struct {
+	Username string `json:"username"`
+	URL      string `json:"url"`
+	Avatar   string `json:"avatar"`
+}
+
 // GetSize is size result to return
 type GetSize struct {
-	Hash    string `json:"hash"`
-	Author  string `json:"author"`
-	Message string `json:"message"`
-	Date    string `json:"date"`
-	Size    uint   `json:"size"`
-	Gzip    uint   `json:"gzip"`
+	Hash    string    `json:"hash"`
+	Author  GetAuthor `json:"author"`
+	Message string    `json:"message"`
+	Date    string    `json:"date"`
+	Size    uint      `json:"size"`
+	Gzip    uint      `json:"gzip"`
 }
 
 // SizesResult is the result for the sizes
@@ -52,7 +59,8 @@ func (report *Report) Get(args *GetArgs) (*GetResult, error) {
 
 	err := report.db.Preload("Reports", func(db *gorm.DB) *gorm.DB {
 		return report.db.Select("name, size, gzip, commit_id, updated_at")
-	}).Where("branch_id = (?)", branch).
+	}).Preload("Author").
+		Where("branch_id = (?)", branch).
 		Order("date ASC").
 		Find(&commits).
 		Error
@@ -92,8 +100,12 @@ func FormatGetResult(commits []models.Commit) []*SizesResult {
 			}
 
 			getSize := GetSize{
-				Hash:    commit.Hash,
-				Author:  commit.Author,
+				Hash: commit.Hash,
+				Author: GetAuthor{
+					Username: commit.Author.Username,
+					Avatar:   commit.Author.Avatar,
+					URL:      commit.Author.URL,
+				},
 				Message: commit.Message,
 				Date:    commit.Date.Format("2006-01-02T15:04"),
 				Size:    report.Size,

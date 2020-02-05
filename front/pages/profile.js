@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
 
 import Layout from '../components/layout';
 import Repos from '../components/repos';

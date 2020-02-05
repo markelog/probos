@@ -11,7 +11,7 @@ func setPostError(log *logrus.Logger, params *controller.CreateArgs, ctx iris.Co
 	errorString := err.Error()
 
 	log.WithFields(logrus.Fields{
-		"Repository": params.Repository.Repository,
+		"repository": params.Repository.Repository,
 		"branch":     params.Repository.Branch.Name,
 	}).Error(errorString)
 
@@ -25,7 +25,7 @@ func setPostError(log *logrus.Logger, params *controller.CreateArgs, ctx iris.Co
 
 func setLastError(log *logrus.Logger, params *controller.LastArgs, ctx iris.Context, err error) {
 	log.WithFields(logrus.Fields{
-		"Repository": params.Repository,
+		"repository": params.Repository,
 		"branch":     params.Branch,
 	}).Error(err.Error())
 
@@ -39,7 +39,7 @@ func setLastError(log *logrus.Logger, params *controller.LastArgs, ctx iris.Cont
 
 func setGetError(log *logrus.Logger, params *controller.GetArgs, ctx iris.Context, err error) {
 	log.WithFields(logrus.Fields{
-		"Repository": params.Repository,
+		"repository": params.Repository,
 		"branch":     params.Branch,
 	}).Error(err.Error())
 

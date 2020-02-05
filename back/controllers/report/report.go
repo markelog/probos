@@ -16,7 +16,7 @@ type Report struct {
 // CreateArgs are create arguments for report type
 type CreateArgs struct {
 	Repository struct {
-		Repository string `json:"repository"`
+		Repository string `json:"name"`
 		Branch     struct {
 			Name   string `json:"name"`
 			Commit struct {
@@ -30,7 +30,7 @@ type CreateArgs struct {
 				} `json:"report"`
 			} `json:"commit"`
 		} `json:"branch"`
-	} `json:"Repository"`
+	} `json:"repository"`
 }
 
 // New report
@@ -43,12 +43,13 @@ func New(db *gorm.DB) *Report {
 // Create report and associated data
 func (report *Report) Create(args *CreateArgs) (err error) {
 	var (
-		Repository models.Repository
-		branch     models.Branch
-		commit     = &models.Commit{
+		authorEmail = args.Repository.Branch.Commit.Author
+		author      *models.Author
+		repository  models.Repository
+		branch      models.Branch
+		commit      = &models.Commit{
 			BranchID: branch.ID,
 			Hash:     args.Repository.Branch.Commit.Hash,
-			Author:   args.Repository.Branch.Commit.Author,
 			Message:  args.Repository.Branch.Commit.Message,
 			Date:     args.Repository.Branch.Commit.Date,
 		}
@@ -56,9 +57,15 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 		tx = report.db.Begin()
 	)
 
+	author, err = fetchGithubUser(authorEmail)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
 	err = tx.Where(models.Repository{
 		Repository: args.Repository.Repository,
-	}).FirstOrCreate(&Repository).Error
+	}).FirstOrCreate(&repository).Error
 
 	if err != nil {
 		tx.Rollback()
@@ -66,7 +73,7 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 	}
 
 	err = tx.Where(models.Branch{
-		RepositoryID: Repository.ID,
+		RepositoryID: repository.ID,
 		Name:         args.Repository.Branch.Name,
 	}).FirstOrCreate(&branch).Error
 
@@ -79,11 +86,19 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 		BranchID: branch.ID,
 		Hash:     args.Repository.Branch.Commit.Hash,
 	}).Assign(models.Commit{
-		Author:  args.Repository.Branch.Commit.Author,
+		Author:  *author,
 		Message: args.Repository.Branch.Commit.Message,
 		Date:    args.Repository.Branch.Commit.Date,
 	}).FirstOrCreate(&commit).Error
 
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	err = tx.Where(models.Author{
+		Email: authorEmail,
+	}).FirstOrCreate(&author).Error
 	if err != nil {
 		tx.Rollback()
 		return err
@@ -100,7 +115,7 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 
 	if len(reports) == 0 {
 		tx.Rollback()
-		return errors.New("There is not applicable reports")
+		return errors.New("There is no applicable reports")
 	}
 
 	err = tx.Model(&commit).Association("Reports").Append(reports).Error

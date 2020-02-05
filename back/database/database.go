@@ -52,6 +52,7 @@ func Up() *gorm.DB {
 	// Migrations
 	err = db.AutoMigrate(
 		&models.User{},
+		&models.Author{},
 		&models.Repository{},
 		&models.Branch{},
 		&models.Commit{},
