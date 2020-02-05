@@ -23,17 +23,23 @@ const { API } = process.env;
 const useStyles = makeStyles(({ palette }) => {
   return {
     card: {
+      position: 'relative',
       minWidth: 275,
-      width: '50%'
+      height: 220
+    },
+    cardContent: {
+      overflow: 'auto',
+      width: '100%',
+      height: 230
     },
     gridContainer: {
       position: 'relative'
     },
     chart: {
       position: 'absolute',
-      top: 0,
+      top: 60,
       right: 0,
-      bottom: 0,
+      bottom: 25,
       left: 0,
       opacity: 0.1
     },
@@ -71,7 +77,46 @@ function getData(username, page) {
 
 function view(data) {
   const classes = useStyles();
-  return data.map(viewRepo.bind(null, classes));
+
+  return (
+    <Grid container spacing={3} justify="center">
+      {data.map(repo => {
+        return (
+          <Grid xs item>
+            {viewRepo(classes, repo)}
+          </Grid>
+        );
+      })}
+    </Grid>
+  );
+}
+
+function viewRepo(classes, data, index) {
+  const { name, repository, total } = data;
+  const href = `/repos/${repository}`;
+
+  return (
+    <Card className={classes.card} key={index} variant="outlined">
+      <CardContent className={classes.cardContent}>
+        <div className={classes.chart}>
+          <LittleChart total={total} />
+        </div>
+        <Typography variant="h5" component="h2">
+          <Link href={href}>
+            <a className={classes.link}>{name}</a>
+          </Link>
+        </Typography>
+        <Grid
+          container
+          justify="flex-start"
+          key={name}
+          className={classes.gridContainer}
+        >
+          {data['last-report'].map(viewFiles.bind(null, classes))}
+        </Grid>
+      </CardContent>
+    </Card>
+  );
 }
 
 function viewFiles(classes, data) {
@@ -101,34 +146,6 @@ function viewFiles(classes, data) {
         })}
       </List>
     </Grid>
-  );
-}
-
-function viewRepo(classes, data, index) {
-  const { name, repository, total } = data;
-  const href = `/repos/${repository}`;
-
-  return (
-    <Card className={classes.card} key={index}>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          <Link href={href}>
-            <a className={classes.link}>{name}</a>
-          </Link>
-        </Typography>
-        <Grid
-          container
-          justify="flex-start"
-          key={name}
-          className={classes.gridContainer}
-        >
-          <Grid item xs={12} className={classes.chart}>
-            <LittleChart total={total} />
-          </Grid>
-          {data['last-report'].map(viewFiles.bind(null, classes))}
-        </Grid>
-      </CardContent>
-    </Card>
   );
 }
 
