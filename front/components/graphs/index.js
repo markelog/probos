@@ -13,6 +13,9 @@ const { API } = process.env;
 const useStyles = makeStyles({
   container: {
     marginBottom: 20
+  },
+  title: {
+    fontSize: 14
   }
 });
 
@@ -26,32 +29,18 @@ function getData(branch, repository) {
 const Graphs = ({ repository, branch }) => {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [name, setName] = useState('');
 
   const requestData = async () => {
     const data = await getData(branch, repository);
 
     setData(data.sizes);
-    setName(data.name);
   };
 
   useEffect(() => {
     requestData();
-  }, []);
+  }, [branch]);
 
-  return (
-    <>
-      <Typography
-        className={classes.title}
-        variant="h2"
-        component="h2"
-        gutterBottom={true}
-      >
-        {name}
-      </Typography>
-      <ViewFiles data={data} repository={repository} />
-    </>
-  );
+  return <ViewFiles data={data} repository={repository} />;
 };
 
 function ViewFiles({ data, repository }) {
@@ -61,14 +50,6 @@ function ViewFiles({ data, repository }) {
 
     return (
       <div className={classes.container}>
-        <Typography
-          className={classes.title}
-          variant="h3"
-          component="h3"
-          gutterBottom={true}
-        >
-          {name}
-        </Typography>
         <Chart data={sizes} />
         <Table data={sizes} repository={repository} />
       </div>
