@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch';
 
 import { ResponsiveBar } from '@nivo/bar';
 
-import { formatDistance, subDays } from 'date-fns';
+import { formatDistance } from 'date-fns';
 
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,7 +50,7 @@ const Chart = ({ data }) => {
 const Tooltip = ({ point }) => {
   const classes = useStyles();
   const { size, gzip, author, hash, message, date } = point.data;
-  const formattedDate = formatDistance(subDays(new Date(), 3), new Date(date));
+  const formattedDate = formatDistance(new Date(), new Date(date));
 
   return (
     <Card className={classes.card}>

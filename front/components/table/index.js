@@ -16,7 +16,7 @@ import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 
 import prettyBytes from 'pretty-bytes';
-import { formatDistance, subDays } from 'date-fns';
+import { formatDistance } from 'date-fns';
 
 import User from '../user';
 
@@ -157,10 +157,7 @@ const columns = [
     label: 'date',
     align: 'center',
     format: ({ date }, classes) => {
-      const distanceDate = formatDistance(
-        subDays(new Date(), 3),
-        new Date(date)
-      );
+      const distanceDate = formatDistance(new Date(), new Date(date));
 
       return <span className={classes.stiff}>{distanceDate}</span>;
     }
