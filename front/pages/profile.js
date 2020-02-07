@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Index({ user }) {
+function Profile({ user }) {
   const classes = useStyles();
   const router = useRouter();
   const { page = 1 } = router.query;
@@ -37,10 +37,10 @@ function Index({ user }) {
   );
 }
 
-Index.getInitialProps = ({ query }) => {
+Profile.getInitialProps = ({ query }) => {
   return {
     user: query.user
   };
 };
 
-export default Index;
+export default Profile;
