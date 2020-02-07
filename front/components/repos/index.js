@@ -43,6 +43,9 @@ const useStyles = makeStyles(({ palette }) => {
       left: 0,
       opacity: 0.1
     },
+    repo: {
+      minWidth: '50%'
+    },
     title: {
       fontSize: 14
     },
@@ -82,7 +85,7 @@ function view(data) {
     <Grid container spacing={3} justify="center">
       {data.map(repo => {
         return (
-          <Grid xs item>
+          <Grid xs item className={classes.repo}>
             {viewRepo(classes, repo)}
           </Grid>
         );

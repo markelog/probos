@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import Link from '@material-ui/core/Link';
 
 import MoreIcon from '@material-ui/icons/AddCircleOutline';
 import LessIcon from '@material-ui/icons/RemoveCircleOutline';
@@ -102,54 +103,63 @@ const columns = [
     id: 'size',
     label: 'size',
     align: 'center',
-    format: (value, classes) => {
-      return <span className={classes.stiff}>{prettyBytes(value)}</span>;
+    format: ({ size }, classes) => {
+      return <span className={classes.stiff}>{prettyBytes(size)}</span>;
     }
   },
   {
     id: 'gzip',
     label: 'gzip',
     align: 'center',
-    format: (value, classes) => {
-      return <span className={classes.stiff}>{prettyBytes(value)}</span>;
+    format: ({ gzip }, classes) => {
+      return <span className={classes.stiff}>{prettyBytes(gzip)}</span>;
     }
   },
   {
     id: 'sizeDiff',
     label: 'size &Delta;',
     align: 'center',
-    format: diffFormat
+    format: (data, classes) => {
+      return diffFormat(data.sizeDiff, classes);
+    }
   },
   {
     id: 'gzipDiff',
     label: 'gzip &Delta;',
     align: 'center',
-    format: diffFormat
+    format: (data, classes) => {
+      return diffFormat(data.gzipDiff, classes);
+    }
   },
   {
     id: 'author',
     label: 'author',
     align: 'center',
-    format: (...args) => {
-      return <User {...args[0]} />;
+    format: ({ author }) => {
+      return <User {...author} />;
     }
   },
   {
     id: 'message',
     label: 'message',
     align: 'center',
-    format: (value, classes) => {
-      return <span className={classes.stiff}>{value}</span>;
+    format: (data, classes) => {
+      const href = `https://${data.repository}/commit/${data.hash}`;
+      return (
+        <Link className={classes.stiff} href={href}>
+          {data.message}
+        </Link>
+      );
     }
   },
   {
     id: 'date',
     label: 'date',
     align: 'center',
-    format: (value, classes) => {
+    format: ({ date }, classes) => {
       const distanceDate = formatDistance(
         subDays(new Date(), 3),
-        new Date(value)
+        new Date(date)
       );
 
       return <span className={classes.stiff}>{distanceDate}</span>;
@@ -212,7 +222,7 @@ function process(data) {
   return data.reverse();
 }
 
-export default function Sizes({ data }) {
+export default function Sizes({ data, repository, branch }) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
@@ -241,9 +251,7 @@ export default function Sizes({ data }) {
                     key={column.id}
                     align={column.align}
                     dangerouslySetInnerHTML={{ __html: column.label }}
-                  >
-                    {}
-                  </TableCell>
+                  />
                 );
               })}
             </TableRow>
@@ -256,6 +264,7 @@ export default function Sizes({ data }) {
                   <TableRow hover role="checkbox" tabIndex={-1} key={i}>
                     {columns.map(column => {
                       const value = item[column.id];
+                      const data = Object.assign(item, { repository });
 
                       return (
                         <TableCell
@@ -263,9 +272,7 @@ export default function Sizes({ data }) {
                           key={column.date}
                           align={column.align}
                         >
-                          {column.format
-                            ? column.format(value, classes)
-                            : value}
+                          {column.format ? column.format(item, classes) : value}
                         </TableCell>
                       );
                     })}

@@ -49,12 +49,12 @@ const Graphs = ({ repository, branch }) => {
       >
         {name}
       </Typography>
-      <ViewFiles data={data} />
+      <ViewFiles data={data} repository={repository} />
     </>
   );
 };
 
-function ViewFiles({ data }) {
+function ViewFiles({ data, repository }) {
   const classes = useStyles();
   return data.map(result => {
     const { name, sizes } = result;
@@ -70,7 +70,7 @@ function ViewFiles({ data }) {
           {name}
         </Typography>
         <Chart data={sizes} />
-        <Table data={sizes} />
+        <Table data={sizes} repository={repository} />
       </div>
     );
   });
