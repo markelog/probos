@@ -68,7 +68,7 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 		Repository: args.Repository.Repository,
 	}).Assign(&models.Repository{
 		DefaultBranch: args.Repository.DefaultBranch,
-	}).FirstOrCreate(&repository).Error
+	}).Take(&repository).Error
 
 	if err != nil {
 		tx.Rollback()

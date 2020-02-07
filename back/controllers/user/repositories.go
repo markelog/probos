@@ -61,7 +61,7 @@ func (user *User) Repositories(
 	}
 
 	preloadCommits := func(db *gorm.DB) *gorm.DB {
-		return db.Limit(5).Order("date DESC")
+		return db.Select("*").Order("date ASC")
 	}
 
 	err := user.db.Where(models.User{

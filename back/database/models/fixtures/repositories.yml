@@ -33,3 +33,12 @@
   deleted_at: null
   name: "probos-cli"
   repository: github.com/markelog/probos-cli
+
+# For manual testing
+- id: 5
+  default_branch: "master"
+  created_at: 2018-12-12T09:53:02.186Z
+  updated_at: 2018-12-12T09:53:02.186Z
+  deleted_at: null
+  name: "jquery"
+  repository: markelog/jquery
