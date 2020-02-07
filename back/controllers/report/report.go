@@ -16,8 +16,9 @@ type Report struct {
 // CreateArgs are create arguments for report type
 type CreateArgs struct {
 	Repository struct {
-		Repository string `json:"name"`
-		Branch     struct {
+		Repository    string `json:"repository"`
+		DefaultBranch string `json:"defaultBranch"`
+		Branch        struct {
 			Name   string `json:"name"`
 			Commit struct {
 				Hash    string    `json:"hash"`
@@ -45,8 +46,8 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 	var (
 		authorEmail = args.Repository.Branch.Commit.Author
 		author      *models.Author
-		repository  models.Repository
 		branch      models.Branch
+		repository  models.Repository
 		commit      = &models.Commit{
 			BranchID: branch.ID,
 			Hash:     args.Repository.Branch.Commit.Hash,
@@ -65,6 +66,8 @@ func (report *Report) Create(args *CreateArgs) (err error) {
 
 	err = tx.Where(models.Repository{
 		Repository: args.Repository.Repository,
+	}).Assign(&models.Repository{
+		DefaultBranch: args.Repository.DefaultBranch,
 	}).FirstOrCreate(&repository).Error
 
 	if err != nil {
