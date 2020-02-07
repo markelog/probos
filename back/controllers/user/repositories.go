@@ -46,21 +46,28 @@ func (user *User) Repositories(
 		QueryExpr()
 
 	preloadRepos := func(db *gorm.DB) *gorm.DB {
-		return user.db.Where("id IN (?)", reposExpr).
+		return db.Where("id IN (?)", reposExpr).
 			Limit(limit).
 			Offset(limit * correctedPage)
 	}
 
+	preloadBranches := func(db *gorm.DB) *gorm.DB {
+		var names []string
+		for _, repo := range getUser.Repositories {
+			names = append(names, repo.DefaultBranch)
+		}
+
+		return db.Where("name IN (?)", names)
+	}
+
 	preloadCommits := func(db *gorm.DB) *gorm.DB {
-		return user.db.
-			Limit(5).
-			Order("date DESC")
+		return db.Limit(5).Order("date DESC")
 	}
 
 	err := user.db.Where(models.User{
 		Username: username,
 	}).Preload("Repositories", preloadRepos).
-		Preload("Repositories.Branches").
+		Preload("Repositories.Branches", preloadBranches).
 		Preload("Repositories.Branches.Commits", preloadCommits).
 		Preload("Repositories.Branches.Commits.Reports").
 		Take(&getUser).Error
