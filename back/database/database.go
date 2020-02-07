@@ -67,7 +67,7 @@ func Up() *gorm.DB {
 	// Foreign keys
 	db.Model(
 		&models.Branch{},
-	).AddForeignKey("repository_id", "Repositories(id)", "CASCADE", "CASCADE")
+	).AddForeignKey("repository_id", "repositories(id)", "CASCADE", "CASCADE")
 
 	db.Model(
 		&models.Commit{},

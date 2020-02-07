@@ -53,7 +53,7 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 
 	app.Get("/repositories", func(ctx iris.Context) {
 		ctrl := controller.New(db)
-		Repositories, err := ctrl.List()
+		repositories, err := ctrl.List()
 
 		if err != nil {
 			errorString := err.Error()
@@ -69,8 +69,8 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 			return
 		}
 
-		if len(Repositories) == 0 {
-			log.Error("Can't find any Repositories")
+		if len(repositories) == 0 {
+			log.Error("Can't find any repositories")
 
 			ctx.StatusCode(iris.StatusNotFound)
 			ctx.JSON(iris.Map{
@@ -82,13 +82,42 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 			return
 		}
 
-		log.Info("Repositories returned")
+		log.Info("repositories returned")
 
 		ctx.StatusCode(iris.StatusOK)
 		ctx.JSON(iris.Map{
 			"status":  "success",
 			"message": "There you go",
-			"payload": Repositories,
+			"payload": repositories,
+		})
+	})
+
+	app.Get(`/repositories/{repository:path}`, func(ctx iris.Context) {
+		ctrl := controller.New(db)
+		repo := ctx.Params().Get("repository")
+		repository, err := ctrl.Get(repo)
+
+		if err != nil {
+			errorString := err.Error()
+			log.Error(errorString)
+
+			ctx.StatusCode(iris.StatusBadRequest)
+			ctx.JSON(iris.Map{
+				"status":  "failed",
+				"message": "Something went wrong",
+				"payload": iris.Map{},
+			})
+
+			return
+		}
+
+		log.Info("repositories returned")
+
+		ctx.StatusCode(iris.StatusOK)
+		ctx.JSON(iris.Map{
+			"status":  "success",
+			"message": "There you go",
+			"payload": repository,
 		})
 	})
 }
