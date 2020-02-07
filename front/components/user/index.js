@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => ({
 export default function({ url, username, avatar }) {
   const classes = useStyles();
   return (
-    <Link href={url}>
+    <>
       <Avatar alt={username} src={avatar} className={classes.avatar} />
       <b className={classes.content}>
-        @<a>{username}</a>
+        <Link href={url}>{username}</Link>
       </b>
-    </Link>
+    </>
   );
 }

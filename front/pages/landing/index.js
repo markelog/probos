@@ -11,13 +11,31 @@ import Background from './background.jpg';
 
 const useStyles = makeStyles(theme => ({
   main: {
-    backgroundImage: `url(${Background})`,
+    // backgroundImage: `url(${Background})`,
     height: '100%'
+  },
+
+  ship: {
+    fontSize: '2rem',
+    fontFamily:
+      'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace'
   },
   link: {
     margin: theme.spacing(1)
   }
 }));
+
+const ship = `
+               |    |    |
+             )_)  )_)  )_)
+            )___))___))___)\
+           )____)____)_____)\\
+         _____|____|____|____\\\__
+---------\                   /---------
+  ^^^^^ ^^^^^^^^^^^^^^^^^^^^^
+    ^^^^      ^^^^     ^^^    ^^
+         ^^^^      ^^^
+`;
 
 function Index({ user }) {
   const classes = useStyles();
@@ -26,7 +44,7 @@ function Index({ user }) {
     <main className={classes.main}>
       <Top />
       <Layout>
-        <h1>Hello world</h1>
+        <pre className={classes.ship}>{ship}</pre>
         <style>{`
           html,
           body,

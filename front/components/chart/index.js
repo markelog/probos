@@ -41,7 +41,6 @@ const Chart = ({ data }) => {
       <ResponsiveBar
         {...config}
         data={data}
-        axisBottom={null}
         tooltip={point => <Tooltip point={point} />}
       />
     </div>

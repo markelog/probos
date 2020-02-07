@@ -45,7 +45,7 @@ const Graphs = ({ repository, branch }) => {
         className={classes.title}
         variant="h2"
         component="h2"
-        gutterBottom="true"
+        gutterBottom={true}
       >
         {name}
       </Typography>
@@ -65,7 +65,7 @@ function ViewFiles({ data }) {
           className={classes.title}
           variant="h3"
           component="h3"
-          gutterBottom="true"
+          gutterBottom={true}
         >
           {name}
         </Typography>

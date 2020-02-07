@@ -60,7 +60,6 @@ const useStyles = makeStyles({
     maxWidth: '40px',
     width: '40px'
   },
-
   stiff: {
     whiteSpace: 'nowrap'
   },
@@ -102,7 +101,7 @@ const columns = [
   {
     id: 'size',
     label: 'size',
-    align: 'right',
+    align: 'center',
     format: (value, classes) => {
       return <span className={classes.stiff}>{prettyBytes(value)}</span>;
     }
@@ -110,7 +109,7 @@ const columns = [
   {
     id: 'gzip',
     label: 'gzip',
-    align: 'right',
+    align: 'center',
     format: (value, classes) => {
       return <span className={classes.stiff}>{prettyBytes(value)}</span>;
     }
@@ -118,19 +117,19 @@ const columns = [
   {
     id: 'sizeDiff',
     label: 'size &Delta;',
-    align: 'right',
+    align: 'center',
     format: diffFormat
   },
   {
     id: 'gzipDiff',
     label: 'gzip &Delta;',
-    align: 'right',
+    align: 'center',
     format: diffFormat
   },
   {
     id: 'author',
     label: 'author',
-    align: 'right',
+    align: 'center',
     format: (...args) => {
       return <User {...args[0]} />;
     }
@@ -138,7 +137,7 @@ const columns = [
   {
     id: 'message',
     label: 'message',
-    align: 'right',
+    align: 'center',
     format: (value, classes) => {
       return <span className={classes.stiff}>{value}</span>;
     }
@@ -146,7 +145,7 @@ const columns = [
   {
     id: 'date',
     label: 'date',
-    align: 'right',
+    align: 'center',
     format: (value, classes) => {
       const distanceDate = formatDistance(
         subDays(new Date(), 3),

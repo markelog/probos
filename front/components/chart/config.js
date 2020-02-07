@@ -16,6 +16,7 @@ export default {
   axisLeft: null,
   axisTop: null,
   axisRight: null,
+  axisBottom: null,
   indexBy: 'date',
   enableGridX: false,
   enableGridY: false,
