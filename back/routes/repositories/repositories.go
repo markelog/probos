@@ -1,9 +1,11 @@
 package repositories
 
 import (
+	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
 	controller "github.com/markelog/probos/back/controllers/repository"
+	"github.com/markelog/probos/back/routes/middleware"
 	"github.com/sirupsen/logrus"
 )
 
@@ -14,10 +16,12 @@ type postRepository struct {
 
 // Up Repository route
 func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
+	middlewares := middleware.Up()
+	ctrl := controller.New(db)
+
 	app.Post("/repositories", func(ctx iris.Context) {
 		var params postRepository
 		ctx.ReadJSON(&params)
-		ctrl := controller.New(db)
 		result, err := ctrl.Create(params.Name, params.Repository)
 
 		if err != nil {
@@ -52,7 +56,6 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 	})
 
 	app.Get("/repositories", func(ctx iris.Context) {
-		ctrl := controller.New(db)
 		repositories, err := ctrl.List()
 
 		if err != nil {
@@ -93,13 +96,26 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 	})
 
 	app.Get(`/repositories/{repository:path}`, func(ctx iris.Context) {
-		ctrl := controller.New(db)
 		repo := ctx.Params().Get("repository")
-		repository, err := ctrl.Get(repo)
+
+		err := middlewares.JWT.CheckJWT(ctx)
+		if err != nil {
+			log.Error(err.Error())
+
+			ctx.StatusCode(iris.StatusBadRequest)
+			ctx.JSON(iris.Map{
+				"status":  "failed",
+				"message": "Inccorect JWT key",
+				"payload": iris.Map{},
+			})
+		}
+
+		user := ctx.Values().Get("jwt").(*jwt.Token)
+
+		repository, err := ctrl.Get(repo, user.Claims["user"])
 
 		if err != nil {
-			errorString := err.Error()
-			log.Error(errorString)
+			log.Error(err.Error())
 
 			ctx.StatusCode(iris.StatusBadRequest)
 			ctx.JSON(iris.Map{

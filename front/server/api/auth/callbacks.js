@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const passport = require('./passport');
 
-module.exports = (server) => {
+module.exports = server => {
   server.get(
     '/api/auth/callback/github',
     passport.authenticate('github', {
@@ -18,7 +18,7 @@ module.exports = (server) => {
         (err, token) => {
           // Send Set-Cookie header
           res.cookie('jwt', token, {
-            httpOnly: true,
+            httpOnly: false,
             signed: false,
             maxAge: 24 * 60 * 60 * 1000 // 24 hours
           });

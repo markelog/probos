@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'next/router';
 import Router from 'next/router';
+import cookies from 'js-cookie';
 
 import Link from '@material-ui/core/Link';
 import FormControl from '@material-ui/core/FormControl';
@@ -30,7 +31,12 @@ const useStyles = makeStyles(theme => ({
 
 function getData(repository) {
   const url = `${API}/repositories/${repository}`;
-  return fetch(url)
+
+  return fetch(url, {
+    headers: {
+      Authorization: `Bearer ${cookies.get('jwt')}`
+    }
+  })
     .then(response => response.json())
     .then(response => response.payload);
 }

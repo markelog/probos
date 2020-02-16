@@ -77,7 +77,7 @@ type GetValue struct {
 }
 
 // Get returns the repository found by the repository path
-func (repository *Repository) Get(path string) (*GetValue, error) {
+func (repository *Repository) Get(path, user string) (*GetValue, error) {
 	var (
 		repo   models.Repository
 		result *GetValue
