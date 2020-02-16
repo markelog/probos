@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'next/router';
+import Router from 'next/router';
 
 import Link from '@material-ui/core/Link';
 import FormControl from '@material-ui/core/FormControl';
@@ -55,20 +57,38 @@ const SelectBranch = function({ current, branches, onChange }) {
 
 const Repo = function(data) {
   const classes = useStyles();
-  const { user, repository } = data;
+  const { user, repository, branch, router } = data;
 
   const [repo, setData] = useState({});
-  const [branch, setBranch] = useState(undefined);
+  const [defaultBranch, setDefaultBranch] = useState(undefined);
+  const [currentBranch, setCurrentBranch] = useState(branch);
   const [branches, setBranches] = useState([]);
   const [name, setName] = useState('');
 
   const requestData = async () => {
     const data = await getData(repository);
 
-    setBranch(data.defaultBranch);
+    setDefaultBranch(data.defaultBranch);
+    setCurrentBranch(branch || data.defaultBranch);
     setBranches(data.branches);
     setName(data.name);
     setData(data);
+  };
+
+  const handleBranch = event => {
+    const branch = event.target.value;
+
+    if (branch === defaultBranch) {
+      router.push(Router.pathname, `/repos/${repository}`, {
+        shallow: true
+      });
+    } else {
+      router.push(Router.pathname, `/repos/${repository}/branch/${branch}`, {
+        shallow: true
+      });
+    }
+
+    setCurrentBranch(branch);
   };
 
   useEffect(() => {
@@ -94,27 +114,28 @@ const Repo = function(data) {
             <Grid item>
               <SelectBranch
                 className={classes.selectBranch}
-                onChange={event => setBranch(event.target.value)}
-                current={branch}
+                onChange={handleBranch}
+                current={currentBranch}
                 branches={branches}
               />
             </Grid>
           </Grid>
         )}
 
-        {branch === undefined ? null : (
-          <Graphs repository={repository} branch={branch} />
+        {currentBranch === undefined ? null : (
+          <Graphs repository={repository} branch={currentBranch} />
         )}
       </Layout>
     </>
   );
 };
 
-Repo.getInitialProps = ({ query, asPath }) => {
+Repo.getInitialProps = ({ query, router }) => {
   return {
     user: query.user,
-    repository: asPath.replace('/repos/', '')
+    branch: query.branch,
+    repository: query.repository
   };
 };
 
-export default Repo;
+export default withRouter(Repo);

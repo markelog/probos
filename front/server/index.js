@@ -39,11 +39,27 @@ app.prepare().then(() => {
     res.redirect(302, '/');
   });
 
-  server.get(/repos\/(.*)/, jwtAuth, (req, res) => {
+  server.get('/repos/github.com/:org/:name', jwtAuth, (req, res) => {
+    const { org, name } = req.params;
+
     return app.render(req, res, '/repo', {
+      repository: `github.com/${org}/${name}`,
       user: req.user
     });
   });
+
+  server.get(
+    '/repos/github.com/:org/:name/branch/:branch',
+    jwtAuth,
+    (req, res) => {
+      const { org, name, branch } = req.params;
+      return app.render(req, res, '/repo', {
+        repository: `github.com/${org}/${name}`,
+        branch,
+        user: req.user
+      });
+    }
+  );
 
   server.all('*', (req, res) => {
     return handle(req, res);
