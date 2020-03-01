@@ -3,6 +3,7 @@ import { withRouter } from 'next/router';
 import Router from 'next/router';
 import cookies from 'js-cookie';
 
+import Chip from '@material-ui/core/Chip';
 import Link from '@material-ui/core/Link';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -10,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -22,6 +24,11 @@ const { API } = process.env;
 const useStyles = makeStyles(theme => ({
   link: {
     margin: theme.spacing(1)
+  },
+  chip: {
+    marginTop: -40,
+    marginLeft: 10,
+    borderRadius: 0
   },
   formControl: {
     marginTop: 10,
@@ -66,6 +73,7 @@ const Repo = function(data) {
   const { user, repository, branch, router } = data;
 
   const [repo, setData] = useState({});
+  const [token, setToken] = useState(undefined);
   const [defaultBranch, setDefaultBranch] = useState(undefined);
   const [currentBranch, setCurrentBranch] = useState(branch);
   const [branches, setBranches] = useState([]);
@@ -76,6 +84,7 @@ const Repo = function(data) {
 
     setDefaultBranch(data.defaultBranch);
     setCurrentBranch(branch || data.defaultBranch);
+    setToken(data.token);
     setBranches(data.branches);
     setName(data.name);
     setData(data);
@@ -115,6 +124,13 @@ const Repo = function(data) {
                 gutterBottom={true}
               >
                 {name}
+                {token && (
+                  <Chip
+                    className={classes.chip}
+                    label={'PROBOS_TOKEN=' + token}
+                    icon={<LockOpenIcon />}
+                  />
+                )}
               </Typography>
             </Grid>
             <Grid item>
