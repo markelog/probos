@@ -24,10 +24,10 @@ func generate() string {
 }
 
 // New Token
-func New(db *gorm.DB) *Token {
+func New(db *gorm.DB) Token {
 	generated := generate()
 
-	return &Token{
+	return Token{
 		db: db,
 		Model: &models.Token{
 			Token: generated,
@@ -47,8 +47,7 @@ func (token *Token) Create(Repository uint) (*models.Token, error) {
 	}
 
 	token.Model = &models.Token{
-		Token:      token.Token,
-		Repository: RepositoryModel,
+		Token: token.Token,
 	}
 
 	value = token.db.Create(&token.Model)

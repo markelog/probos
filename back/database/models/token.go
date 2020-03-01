@@ -7,6 +7,6 @@ import (
 // Token model
 type Token struct {
 	gorm.Model
-	Token      string
-	Repository Repository
+	Token        string
+	RepositoryID uint
 }

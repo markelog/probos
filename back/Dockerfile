@@ -1,19 +1,19 @@
-FROM golang:1.11 AS builder
+FROM golang:1.13 as build
 
-# Download and install the latest release of dep
-# FIXME: do not use "ADD"
-ADD https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 /usr/bin/dep
-RUN chmod +x /usr/bin/dep
+ENV GO111MODULE=on
 
-# Copy the code from the host and compile it
-WORKDIR $GOPATH/src/github.com/markelog/probos/back
-COPY Gopkg.toml Gopkg.lock ./
-RUN dep ensure --vendor-only
-COPY . ./
+WORKDIR /app
 
-RUN mkdir /app
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app/run .
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app/validate .
 
 FROM scratch
-COPY --from=builder /app /app
-ENTRYPOINT ["/app/run"]
+COPY --from=build /app /app
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+ENTRYPOINT ["/app/probos"]

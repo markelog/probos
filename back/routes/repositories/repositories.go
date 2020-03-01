@@ -97,30 +97,22 @@ func Up(app *iris.Application, db *gorm.DB, log *logrus.Logger) {
 
 	app.Get(`/repositories/{repository:path}`, func(ctx iris.Context) {
 		repo := ctx.Params().Get("repository")
+		user := ""
 
 		err := middlewares.JWT.CheckJWT(ctx)
-		if err != nil {
-			log.Error(err.Error())
 
-			ctx.StatusCode(iris.StatusBadRequest)
-			ctx.JSON(iris.Map{
-				"status":  "failed",
-				"message": "Inccorect JWT key",
-				"payload": iris.Map{},
-			})
+		if err == nil {
+			user = ctx.Values().Get("jwt").(*jwt.Token).Claims.(jwt.MapClaims)["user"].(string)
 		}
 
-		user := ctx.Values().Get("jwt").(*jwt.Token)
-
-		repository, err := ctrl.Get(repo, user.Claims["user"])
-
+		repository, err := ctrl.Get(repo, user)
 		if err != nil {
 			log.Error(err.Error())
 
-			ctx.StatusCode(iris.StatusBadRequest)
+			ctx.StatusCode(iris.StatusUnauthorized)
 			ctx.JSON(iris.Map{
 				"status":  "failed",
-				"message": "Something went wrong",
+				"message": "Bad Auth",
 				"payload": iris.Map{},
 			})
 

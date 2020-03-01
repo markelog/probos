@@ -26,7 +26,7 @@ func (repository *Repository) Create(name, repo string) (
 	model := &models.Repository{
 		Name:       name,
 		Repository: repo,
-		Token:      token.New(repository.db).Model,
+		Token:      *token.New(repository.db).Model,
 	}
 
 	result := repository.db.Where(models.Repository{
@@ -73,11 +73,51 @@ type GetValue struct {
 	Name          string   `json:"name"`
 	Repository    string   `json:"repository"`
 	DefaultBranch string   `json:"defaultBranch"`
+	Token         string   `json:"token,omitempty"`
 	Branches      []string `json:"branches"`
 }
 
 // Get returns the repository found by the repository path
 func (repository *Repository) Get(path, user string) (*GetValue, error) {
+	var (
+		repo   models.Repository
+		result *GetValue
+		token  string
+	)
+
+	preloadUser := func(db *gorm.DB) *gorm.DB {
+		return db.Where("username = ?", user)
+	}
+
+	err := repository.db.Where(models.Repository{
+		Repository: path,
+	}).Preload("Branches").Preload("Token").Preload("Users", preloadUser).
+		Take(&repo).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(repo.Users) == 1 {
+		token = repo.Token.Token
+	}
+
+	result = &GetValue{
+		Name:          repo.Name,
+		Repository:    repo.Repository,
+		DefaultBranch: repo.DefaultBranch,
+		Token:         token,
+	}
+
+	for _, branch := range repo.Branches {
+		result.Branches = append(result.Branches, branch.Name)
+	}
+
+	return result, nil
+}
+
+// GetToken returns repository token if user permission allows it
+func (repository *Repository) GetToken(path, user string) (*GetValue, error) {
 	var (
 		repo   models.Repository
 		result *GetValue
