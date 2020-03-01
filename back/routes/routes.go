@@ -15,7 +15,11 @@ func Up() *iris.Application {
 	)
 
 	app.Logger().Install(log)
-	app.UseGlobal(cors.Default())
+	app.UseGlobal(cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedHeaders:   []string{"Authorization"},
+		AllowCredentials: true,
+	}))
 	app.Use(recover.New())
 
 	app.Configure(iris.WithConfiguration(iris.Configuration{
